@@ -1,0 +1,54 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+<form class="form-horizontal" action="/edituser/{{product._id}}" method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">Register</legend>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Name of User</label>
+      <div class="controls">
+        <input type="text" id="username" name="username" placeholder="" class="input-xlarge" value="{{product.username}}">
+        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="email" id="email" name="email" placeholder="" class="input-xlarge" value="{{product.email}}">
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="number">Phone Number</label>
+      <div class="controls">
+        <input type="number" id="password" name="number" placeholder="" class="input-xlarge" value="{{product.number}}">
+        <p class="help-block">Phone Number should be at least 10 numbers</p>
+      </div>
+    </div>
+ 
+   
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+      
+       <input type="submit" value="Edit" class="btn btn-success">
+      
+      </div>
+    </div>
+  </fieldset>
+</form>
+ <a href="">  <button class="btn btn-success">Edit</button></a>
+</section>
+</div>

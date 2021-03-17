@@ -4,11 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs=require('express-handlebars')
-var adminRouter = require('./routes/admin');
-var usersRouter = require('./routes/users');
-const { handlebars } = require('hbs');
+var session=require('express-session')
 
+var adminRouter = require('./routes/users');
+var usersRouter = require('./routes/admin');
+const { handlebars } = require('hbs');
+var db=require('./conection/config')
 var app = express();
+const fileUpload=require('express-fileupload')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -16,13 +19,38 @@ app.set('view engine', 'hbs');
 app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutDir:__dirname+'/views/layout/',partialDir:__dirname+'/views/partials/'}))
 app.use(logger('dev'));
 app.use(express.json());
+
+app.use(session({key:'sarath',
+secret:"key",
+resave:false,
+saveUninitialized:false,
+cookie:{maxAge:600000000000}}))
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'))
+app.use(express.static('/public'))
+app.use(express.static('/public/product-images'))
 
+app.use(fileUpload());
+app.use(express.static('/public/product-images'));
+db.conect((err)=>{
+  if (err)
+  console.log('conction error')
+  else
+  console.log('Database conected')
+  })
 
-app.use('admin/', adminRouter);
+  app.use(function (req, res, next) {
+    res.set(
+      "Cache-Control",
+      "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
+    );
+    next();
+  });  
+
+app.use('/', adminRouter);
 app.use('/', usersRouter);
 
 // catch 404 and forward to error handler

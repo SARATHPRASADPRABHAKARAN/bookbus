@@ -1,12 +1,16 @@
 
   
-  {{#if admin}}
-  {{>adminheader}}
-  {{/if}}
-  {{#if user}}
-  {{>userheader}}
-  {{/if}}
 
-  {{{body}}}
+{{#if admin}}
+{{>adminheader}}
+{{/if}}
+{{#if user}}
+{{>userheader}}
+{{/if}}
+
+{{#if no}}
+{{{body}}}
+{{/if}}
+
   
 

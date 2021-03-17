@@ -1,0 +1,41 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Edit User</th>
+                    <th> Block User</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{this.username}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.number}}</td>
+                    <td><a href="/useredit/{{this._id}}" class="btn btn-primary">Edit</a></td>
+
+                    <td>
+                        {{#if this.block}} 
+                        <a href="/unblock/{{this._id}}"> <button type="button"
+                                class="btn btn-warning">Unblock</button></a>
+                  
+                    {{else}}
+
+                    <a href="/block/{{this._id}}"> <button type="button" class="btn btn-danger">block</button></a>
+                    {{/if}}
+                    </td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+            {{/each}}
+
+        </table>
+       
+    </section>
+</div>

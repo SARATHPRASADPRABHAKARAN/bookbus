@@ -1,93 +1,204 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
+<form action="/signup" method="POST" id="signup">
 
-<!-- Mirrored from preview.colorlib.com/theme/abcbook/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 10 Mar 2021 13:22:57 GMT -->
-<head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Book Shop</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+    <h1>Admin Login</h1>
+    <div class="inset">
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/slicknav.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/price_rangs.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="assets/css/themify-icons.css">
-<link rel="stylesheet" href="assets/css/slick.css">
-<link rel="stylesheet" href="assets/css/nice-select.css">
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+        
+        <p>
+            <label for="username" style="color: white;">Username</label>
+            <input type="text" name="username" id="username" styule="color: black;">
+        </p>
+        <p>
+            <label for="email" style="color: white;">Email</label>
+            <input type="email" name="email" id="email" style="color:black;">
+        </p>
+        <p>
+            <label for="number" style="color: white;">Phone Number</label>
+            <input type="number" name="number" id="number" style="color:black;">
+        </p>
+        <p>
+            <label for="password" style="color: white;">Password</label>
+            <input type="password" name="password" id="password" style="color:black;">
+        </p>
 
-<main class="login-bg">
+    </div>
+    <p class="p-container">
 
-<div class="register-form-area">
-<div class="register-form text-center">
+        <input type="submit"  id="go" value="Signup" style="width: 100%;">
+    </p>
+    
+</form>
 
-<div class="register-heading">
-<span>Sign Up</span>
-<p>Create your account to get full access</p>
-</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#signup").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 4
+                },
+                email: {
+                    required: true,
+                    minlength: 4
+                },
+                number: {
+                    required: true,
+                    minlength: 4
+                },
+                password: {
+                    required: true,
+                    minlength: 4
+                }
+            }
+        })
+    })
+</script>
 
-<div class="input-box">
-<div class="single-input-fields">
-<label>Full name</label>
-<input type="text" placeholder="Enter full name">
-</div>
-<div class="single-input-fields">
-<label>Email Address</label>
-<input type="email" placeholder="Enter email address">
-</div>
-<div class="single-input-fields">
-<label>Phone Number</label>
-<input type="number" placeholder="Enter Phone Number">
-</div>
-<div class="single-input-fields">
-<label>Password</label>
-<input type="password" placeholder="Confirm Password">
-</div>
-</div>
+<style>
+    @import "compass/css3";
 
-<div class="register-footer">
+    * {
+        box-sizing: border-box;
+    }
 
-<button class="submit-btn3">Sign Up</button>
-</div>
-</div>
-</div>
+    body {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        color: white;
+        padding-top: 60px;
+        font-size: 12px;
+        background: white url(/images/classy_fabric.png);
+    }
 
-</main>
+    form {
+        background: #fc1616;
+        width: 500px;
+        margin: 30px auto;
+        border-radius: 0.4em;
+        border: 1px solid #191919;
+        overflow: hidden;
+        position: relative;
+
+    }
+
+    form:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1px;
+        width: 100px;
+        left: 20%;
+
+    }
+
+    form:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 8px;
+        height: 5px;
+        border-radius: 50%;
+        left: 34%;
+        top: -7px;
+        box-shadow: 0 0 6px 4px #fff;
+    }
+
+    .inset {
+        padding: 20px;
+        border-top: 1px solid #19191a;
+    }
+
+    form h1 {
+        font-size: 18px;
+
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
+        position: relative;
+    }
+
+    form h1:after {
+        content: "";
+        display: block;
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        left: 50px;
+        pointer-events: none;
+        transform: rotate(70deg);
 
 
-<script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+    }
 
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/slick.min.js"></script>
-<script src="assets/js/jquery.slicknav.min.js"></script>
+    label {
+        color: #666;
+        display: block;
+        padding-bottom: 9px;
+    }
 
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.js"></script>
-<script src="assets/js/jquery.nice-select.min.js"></script>
-<script src="assets/js/jquery.counterup.min.js"></script>
-<script src="assets/js/waypoints.min.js"></script>
-<script src="assets/js/price_rangs.js"></script>
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=number]{
+        width: 100%;
+        padding: 8px 5px;
 
-<script src="assets/js/contact.js"></script>
-<script src="assets/js/jquery.form.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/mail-script.js"></script>
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+        border: 1px solid #222;
+        box-shadow:
 
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/main.js"></script>
-</body>
+            border-radius: 0.3em;
+        margin-bottom: 20px;
+    }
 
-<!-- Mirrored from preview.colorlib.com/theme/abcbook/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 10 Mar 2021 13:22:57 GMT -->
-</html>
+    label[for=remember] {
+        color: white;
+        display: inline-block;
+        padding-bottom: 0;
+        padding-top: 5px;
+    }
+
+    input[type=checkbox] {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .p-container {
+        padding: 0 20px 20px 20px;
+
+    }
+
+    .p-container:after {
+        clear: both;
+        display: table;
+        content: "";
+    }
+
+    .p-container span {
+        display: block;
+        float: left;
+        color: rgb(251, 253, 251);
+        padding-top: 8px;
+    }
+
+    input[type=submit] {
+        padding: 5px 20px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 10px 10px rgba(255, 255, 255, 0.1);
+        border-radius: 0.3em;
+        background: white;
+
+        color: #fc1616;
+        float: right;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    
+</style>

@@ -1,0 +1,128 @@
+<div class="content-wrapper">
+    <section class="content-header">
+
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"
+            id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+
+        <form class="form-horizontal" method="POST" onsubmit="ok()" action="/editproduct/{{product._id}}" enctype="multipart/form-data">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>PRODUCTS</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group" >
+                    <label class="col-md-4 control-label" for="product_name">BOOK NAME</label>
+                    <div class="col-md-4">
+                        <input id="product_name" name="bookname" 
+                            class="form-control input-md" value="{{product.bookname}}" required="" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="product_name_fr">AUTHOR NAME</label>
+                    <div class="col-md-4">
+                        <input id="product_name_fr" name="authorname" 
+                            class="form-control input-md" required="" value="{{product.authorname}}" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="product_categorie"> CATEGORY</label>
+                    <div class="col-md-4">
+                        <select id="product_categorie" name="category" class="form-control">
+                            <option selected value="{{product.category}}">{{product.category}}</option>
+                             {{#each getcategory}}
+                            <option value=" {{this.category}}">{{this.category}}</option>
+                            {{/each}}
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="available_quantity">PRICE</label>
+                    <div class="col-md-4">
+                        <input id="available_quantity" name="price" value="{{product.price}}"class="form-control input-md"
+                            required="" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="product_weight">LANGUAGE</label>
+                    <div class="col-md-4">
+                        <input id="product_weight" name="language" value="{{product.language}}"class="form-control input-md"
+                            required="" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="product_description"> DESCRIPTION</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" id="product_description" value="{{product.product_description}}" name="product_description">{{product.product_description}}</textarea>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+
+                </div>
+
+                <!-- Text input-->
+
+                <!-- Text input-->
+
+                <!-- File Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="filebutton">image</label>
+                    <div class="col-md-4">
+                        <img src="/product-images/{{product._id}}.jpg" style="width: 100px; height: auto;" id="viewImage" alt="">
+                        <input id="filebutton" name="image" class="input-file"  onchange="viewImg(event)"  type="file" accept="image/*">
+                    </div>
+                </div>
+                <!-- File Button -->
+
+
+                <!-- Button -->
+                <div class="form-group"> <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
+                    <div class="col-md-4">
+                        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Edit the Book</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </section>
+</div>
+<script>
+    function ok(){
+        console.log('kjdfh')
+       let hai= document.getElementById("image").val()
+       console.log("hai",hai)
+    }
+</script>
+
+<script>
+    function viewImg(event){
+        console.log("kjwhw")
+        document.getElementById('viewImage').src=URL.createObjectURL(event.target.files[0])
+    }
+    
+</script>

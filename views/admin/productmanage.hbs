@@ -1,0 +1,44 @@
+<div class="content-wrapper">
+    <section class="content-header">
+
+
+        <table id="example" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Preview</th>
+                    <th>Book</th>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th></th>
+                    
+                </tr>
+            </thead>
+            {{#each products}}
+            <tbody>
+                <tr>
+                   
+                   <td ><img style="width: 50px; height:50px;" src="product-images/{{this._id}}.jpg" alt=""> o</td>
+                    <td>{{this.bookname}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.authorname}}</td>
+        
+                    <td>{{this.price}}</td>
+            
+                      <td><a href="/editproduct/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                      
+                    <td><a href="/delete-product/{{this._id}}" class="btn btn-danger "
+                            onclick="return confirm('are you want delete {{this.name}}?')">Delete</a></td>
+                </tr>
+
+            </tbody>
+            {{/each}}
+
+        </table>
+
+<a href="/addproduct" style="align-self: center;"><button style="background-color: rgb(113, 122, 221);">
+                <h6 style="color: azure;">AddProduct</h6>
+            </button></a>
+    </section>
+</div>
