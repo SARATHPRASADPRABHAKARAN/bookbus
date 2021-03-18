@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const userHelper = require("../Helpers/userhelper");
 const session = require("express-session");
+const { Db } = require("mongodb");
 
 /* GET users listing. */
 router.get("/", function (req, res) {
@@ -24,6 +25,15 @@ router.get("/", function (req, res) {
     });
   }
 });
+
+//middlewear verify
+const verifyLogin=(req,res,next)=>{
+  if(req.session.user){
+    next()
+  }else{
+  res.redirect('/')
+  }
+}
 
 //signup
 router.get("/signup", function (req, res) {
@@ -92,5 +102,33 @@ router.get("/logout", (req, res) => {
 
   res.redirect("/");
 });
+
+
+
+
+router.get('/cart',verifyLogin,async(req,res)=>{
+  console.log("kjsh");
+  let products=await userHelper.getCartProducts(req.session.user._id)
+  console.log("dkjdkjdkjdkjd",products)
+  res.render('user/cart',{user:true,products,ses:true})
+})
+
+
+
+
+
+
+router.get("/usercart/:id",verifyLogin,(req,res)=>{
+  console.log('sarath')
+  userHelper.addcart(req.params.id,req.session.user._id).then(()=>{
+    res.redirect('/')
+  })
+  
+})
+
+
+
+
+
 
 module.exports = router;
