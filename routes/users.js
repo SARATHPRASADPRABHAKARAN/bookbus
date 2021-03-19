@@ -3,16 +3,18 @@ var router = express.Router();
 const userHelper = require("../Helpers/userhelper");
 const session = require("express-session");
 const { Db } = require("mongodb");
+const { response } = require("express");
 
 /* GET users listing. */
-router.get("/", function (req, res) {
+router.get("/",async function (req, res) {
   let session = req.session.user;
   console.log("session und", session);
   let nosession = req.session.logginerr;
   if (session) {
+    cartCount= await userHelper.getCartCount(req.session.user._id)
     userHelper.getallproducts().then((products) => {
-      console.log("**", products);
-      res.render("user/userhome", { user: true, ses: true, products });
+      
+      res.render("user/userhome", { user: true, ses: true, products,cartCount });
     });
   } else if (nosession) {
     res.render("user/userlogin", { no: true, err: req.session.logginerr });
@@ -108,9 +110,11 @@ router.get("/logout", (req, res) => {
 
 router.get('/cart',verifyLogin,async(req,res)=>{
   console.log("kjsh");
+  var user=req.session.user
+  let total=await userHelper.getTotalAmount(req.session.user._id)
   let products=await userHelper.getCartProducts(req.session.user._id)
   console.log("dkjdkjdkjdkjd",products)
-  res.render('user/cart',{user:true,products,ses:true})
+  res.render('user/cart',{user,products,ses:true,total})
 })
 
 
@@ -118,15 +122,43 @@ router.get('/cart',verifyLogin,async(req,res)=>{
 
 
 
-router.get("/usercart/:id",verifyLogin,(req,res)=>{
+router.get("/usercart/:id",(req,res)=>{
   console.log('sarath')
   userHelper.addcart(req.params.id,req.session.user._id).then(()=>{
-    res.redirect('/')
+    res.json({status:true})
   })
   
 })
 
 
+
+router.post("/change-quantity",(req,res,next)=>{
+  console.log(req.body)
+  userHelper.changeProductQuantity(req.body).then(async(response)=>{
+    response.subtotal=await userHelper.subTotalAmount(req.body.user,req.body.product)
+    response.total=await userHelper.getTotalAmount(req.body.user)
+    res.json(response)
+  })
+})
+
+
+
+
+router.post("/deleteCartProduct/:id",(req,res)=>{
+  console.log("ethi ",req.body);
+  userHelper.deleteCartProduct(req.body).then((response)=>{
+   
+    res.json(response)
+  })
+})
+
+
+
+router.get('/placeorder',verifyLogin ,async(req,res)=>{
+  let total=await userHelper.getTotalAmount(req.session.user._id)
+  console.log(total)
+  res.render('user/checkout',{user:req.session.user,ses:true,total})
+})
 
 
 

@@ -32,35 +32,38 @@
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
-                        {{#each products}}
+                        
                         <tbody>
+                            {{#each products}}
                             <tr>
+                                
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="assets/img/gallery/best-books1.jpg" alt="" />
+                                            <img src="product-images/{{this.product._id}}.jpg" alt="" />
                                         </div>
                                         <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
+                                            <p>{{this.product.bookname}}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$360.00</h5>
+                                    <h5>{{this.product.price}}</h5>
                                 </td>
+                                
                                 <td>
                                     <div class="product_count">
                                         <span class="input-number-decrement">
                                             <i class="ti-minus"></i></span>
-                                        <input class="input-number" type="text" value="1" min="0" max="10" />
-                                        <span class="input-number-increment">
+                                        <button type="button" class="btn btn-danger" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">-</button><span id="{{this.product._id}}">{{this.quantity}}</span><button type="button" class="btn btn-danger" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">+</button>
+                                        <span class="input-number-increment"> 
                                             <i class="ti-plus"></i></span>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <span id="sub{{this.product._id}}">{{subtotal}}</span>
                                 </td>
-                                <td>  <a href=""> <button type="button" class="btn btn-danger">Remove</button></a></td>
+                                <td>   <button type="button" onclick="deleteCartProduct('{{this._id}}','{{this.product._id}}')" class="btn btn-danger">Remove</button></td>
                             </tr>
                             
                             <tr class="bottom_button">
@@ -73,20 +76,21 @@
                                     </div>
                                 </td>
                             </tr>
+                            {{/each}}
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <h5>Subtotal</h5>
+                                    <h5>total</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <span id="total">{{total}}</span>
                                 </td>
                             </tr>
 
 
                         </tbody>
-                        {{/each}}
+                        
                     </table>
 
                 
@@ -94,7 +98,7 @@
 
                     <a class="btn" href="#">Continue Shopping</a>
 
-                    <a class="btn checkout_btn" href="#">Proceed to checkout</a>
+                    <a class="btn checkout_btn" href="/placeorder">Proceed to checkout</a>
 
                 </div>
             </div>
@@ -102,6 +106,61 @@
         </div>
     </section>
 </main>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+function changeQuantity(cartId,proId,userId,count,proName){
+
+let quantity=parseInt(document.getElementById(proId).innerHTML)
+count=parseInt(count)
+
+    $.ajax({
+        url:'/change-quantity',
+        data:{
+            cart:cartId,
+            product:proId,
+            user:userId,
+            count:count,
+            quantity:quantity
+        },
+        method:'post',
+        success:(response)=>{
+            console.log("thisbis",response)
+            if(response.removeProduct){
+                alert("Product removed from Cart")
+                location.reload()
+            }
+            else{
+                document.getElementById(proId).innerHTML=quantity+count
+                document.getElementById('total').innerHTML=response.total
+                 document.getElementById('sub'+proId).innerHTML=response.subtotal
+            }
+            }
+        
+    })
+}
+
+</script>
+<script>
+    function deleteCartProduct(cartId,proId){
+       
+        $.ajax({
+            url:'/deleteCartProduct',
+            data:{
+                cart:cartId,
+                product:proId
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                alert("Product removed from Cart")
+                location.reload()
+                }
+            }
+        })
+    }
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
  
   

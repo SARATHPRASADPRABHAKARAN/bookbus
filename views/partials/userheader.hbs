@@ -52,7 +52,9 @@
                       <li><a href="#">FAQ</a></li>
                       <li><a href="#">Track Order</a></li>
                       <li class="shopping-card">
-                        <a href="/cart"><img src="assets/img/icon/cart.svg" alt="" /></a>
+                        <span id="cart-count-value"> {{cartCount}}</span>
+                         <input type="text" name="cart-count" id="cart-count" hidden value="{{cartCount}}">
+                        <a id="" href="/cart"> <img src="assets/img/icon/cart.svg" alt="" /></a>
                       </li>
                       <li>
                         <a href="/logout" class="btn header-btn">Logout</a>
@@ -227,7 +229,7 @@
   <div id="back-top">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
   </div>
-
+ 
   <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
   <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
   <script src="/assets/js/popper.min.js"></script>

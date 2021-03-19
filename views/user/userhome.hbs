@@ -106,7 +106,7 @@
                                              <div class="price">
                                             <span>{{this.price}}</span>
                                         </div>
-                                        <a style="padding-left: 5px; padding-bottom:5px;" href="/usercart/{{this._id}}"> <button type="button" class="btn btn-danger">Add to Cart</button></a>
+                                         <button style="padding-left: 5px; padding-bottom:5px;" onclick="addToCart('{{this._id}}')"  type="button" class="btn btn-danger">Add to Cart</button>
                                         
                                             
                                         </div>
@@ -934,6 +934,30 @@
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
 </div>
 
+
+<script>
+    function addToCart(proId){
+    $.ajax({
+        url:'/usercart/'+proId,
+        method:'get',
+        success:(response)=>{
+            if(response.status){
+                let count=$('#cart-count').val()
+                
+                console.log("countntj",count)
+                count=parseInt(count)+1 
+                document.getElementById("cart-count-value").innerHTML=count
+              document.getElementById("cart-count").value=count
+                
+                
+            }
+        }
+    })
+}
+</script>
+
+
+{{!-- <script src="assets/js/script.js" ></script> --}}
 <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="assets/js/popper.min.js"></script>

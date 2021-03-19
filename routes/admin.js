@@ -177,7 +177,7 @@ router.post("/addproduct", (req, res) => {
   if (session) {
     console.log("FHHGC");
     console.log("req", req.body);
-
+    req.body.price=parseInt(req.body.price)
     userhelper.addproduct(req.body, (id) => {
       let image = req.files.image;
       console.log(req.files.image);
@@ -244,6 +244,7 @@ router.get("/editproduct/:id", async (req, res) => {
 router.post("/editproduct/:id", (req, res) => {
   let proid = req.params.id;
   console.log("haii", req.body);
+  req.body.price=parseInt(req.body.price)
   userhelper.updateproduct(proid, req.body).then((product) => {
     if (req.files.image == null) {
       console.log("yhgfv");
