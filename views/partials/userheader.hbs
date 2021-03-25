@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="/assets/css/slick.css" />
   <link rel="stylesheet" href="/assets/css/nice-select.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -52,9 +53,11 @@
                       <li><a href="#">FAQ</a></li>
                       <li><a href="#">Track Order</a></li>
                       <li class="shopping-card">
+                        {{#if cart}}
                         <span id="cart-count-value"> {{cartCount}}</span>
                          <input type="text" name="cart-count" id="cart-count" hidden value="{{cartCount}}">
                         <a id="" href="/cart"> <img src="assets/img/icon/cart.svg" alt="" /></a>
+                        {{/if}}
                       </li>
                       <li>
                         <a href="/logout" class="btn header-btn">Logout</a>

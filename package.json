@@ -19,6 +19,8 @@
     "mongodb": "^3.6.4",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
+    "paypal-rest-sdk": "^1.8.1",
+    "razorpay": "^2.0.6",
     "session": "^0.1.0"
   }
 }

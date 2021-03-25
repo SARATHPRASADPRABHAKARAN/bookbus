@@ -1,0 +1,41 @@
+<div class="content-wrapper">
+    <section class="content-header">
+
+
+        <table id="example" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Index
+                    </th>
+                    <th>Payment Mode</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                    
+                </tr>
+            </thead>
+            
+            <tbody>
+                {{#each orders}}
+                <tr>
+                   
+                   <td > </td>
+                    <td></td>
+                    <td>{{this.Totalamount}}</td>
+                    <td></td>
+        
+                    <td></td>
+            
+                      <td><a href="/viewproducts/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                      
+                   
+                </tr>
+                {{/each}}
+
+            </tbody>
+            
+
+        </table>
+
