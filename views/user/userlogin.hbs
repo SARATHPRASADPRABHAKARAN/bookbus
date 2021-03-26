@@ -2,16 +2,16 @@
 
     <h1>Admin Login</h1>
     <div class="inset">
-       
-    
-        <p id="error"  style="display: none;">invalid password or username</p>
-        <p id="pass"  style="display: none;">Wrong password</p>
-        <p id="block"  style="display: none;">Account blocked</p>
-        
-        
+
+
+        <p id="error" style="display: none;">invalid password or username</p>
+        <p id="pass" style="display: none;">Wrong password</p>
+        <p id="block" style="display: none;">Account blocked</p>
+
+
         <p>
             <label for="email" style="color: white;">USERNAME</label>
-            <input type="text" name="email" id= "email" style="color: black;">
+            <input type="text" name="email" id="email" style="color: black;">
         </p>
         <p>
             <label for="password" style="color: white;">PASSWORD</label>
@@ -26,6 +26,23 @@
     <div>
         <p style="margin-left: 130px;">Don’t have an account? <a href="/signup">Sign Up</a> here</p>
 
+    </div>
+</form>
+
+
+<form action="/otplogin" method="post" id="otp">
+    <span id="otperr" style="display: none;">Number is not registered</span>
+    <div class="inset">
+        <input type="text" name="otp" id="mobile" style="color:black;" placeholder="Phone Number">
+        <input type="submit" id="numbersubmit" name="numbersubmit" value="Otp Login" style="width: 100%;">
+    </div>
+</form>
+
+
+<form id="otpnumber" style="display: none;">
+    <div class="inset">
+        <input type="text" name="otpnumbers" id="otpnumbers" style="color:black;">
+        <input type="submit" id="otpsubmit" name="otpsubmit" value="OTP" style="width: 100%;  ">
     </div>
 </form>
 
@@ -49,43 +66,94 @@
     })
 </script>
 
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
 <script>
     $('#button').click((e) => {
-	e.preventDefault();
-    console.log('gjhgj')
-	let email = $('#email').val()
-	let password = $('#password').val()
-    console.log('email',email,"pass",password)
-	$.ajax ({
-		url: '/login',
-		method: 'post', 
-		data: {
-			email,
-			password
-		},
-		success: (response) => {
-            console.log('RES',response)
-			if (response.status == 1) {
-				window.location.href = "/";
-			} else if(response.status==2){
-               $('#pass').show()
-			}
-            else if (response.status==4){
-                $('#block').show()
+        e.preventDefault();
+        console.log('gjhgj')
+        let email = $('#email').val()
+        let password = $('#password').val()
+        console.log('email', email, "pass", password)
+        $.ajax({
+            url: '/login',
+            method: 'post',
+            data: {
+                email,
+                password
+            },
+            success: (response) => {
+                console.log('RES', response)
+                if (response.status == 1) {
+                    window.location.href = "/";
+                } else if (response.status == 2) {
+                    $('#pass').show()
+                }
+                else if (response.status == 4) {
+                    $('#block').show()
+                }
+                else {
+                    $('#error').show()
+                }
             }
-            else{
-                $('#error').show()
-            }
+        })
+    })
 
-		}
-	})
-})
+
+
+    //otp number
+
+    $('#numbersubmit').click((e) => {
+        e.preventDefault();
+        let Mobile = $('#mobile').val()
+        $.ajax({
+            url: '/otplogin',
+            data: { Mobile },
+            method: 'post',
+            success: (response) => {
+                if (response.response.status == true) {
+                    $('#otp').hide()
+                    $('#otpnumber').show()
+                } else {
+                    alert('NO Otp')
+                    $('#otperr').show()
+                }
+            }
+        })
+
+    })
+
+
+
+
+
+        //otplogin
+
+        $('#otpsubmit').click((e) => {
+            e.preventDefault();
+            console.log('ghfhgfhg')
+            let otp = $('#otpnumbers').val()
+            console.log('ghfhgfhg', otp)
+
+            $.ajax({
+                url: '/otpsubmit',
+                data: { otp },
+                method: 'post',
+                success: (response) => {
+                    console.log(response)
+                    if (response.otp) {
+                        window.location.href = '/login'
+
+                    }
+
+                }
+            })
+
+        })
+
+
+
+
 </script>
 
 

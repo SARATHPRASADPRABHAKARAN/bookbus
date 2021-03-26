@@ -104,10 +104,11 @@
                                             </div>
                                             <p><span></span> {{this.language}}</p>
                                              <div class="price">
-                                            <span>{{this.price}}</span>
+                                            <span>Rs.{{this.price}}</span>
                                         </div>
-                                         <button style="padding-left: 5px; padding-bottom:5px;" onclick="addToCart('{{this._id}}')"  type="button" class="btn btn-danger">Add to Cart</button>
-                                        
+                                        <div>
+                                         <button   onclick="addToCart('{{this._id}}')"  type="submit" class="btn btn-danger">Add  to Cart</button>
+                                        </div>
                                             
                                         </div>
 
@@ -268,8 +269,12 @@
                                                 <div class="price">
                                                 <span>{{this.price}}</span>
                                             </div>
-                                                {{!-- <p><span></span> <h4>{{this.language}}</h4></p> --}}
+                                            <div>
+
+                                                <button    onclick="addToCart('{{this._id}}')"  type="submit" class="btn btn-lg btn-danger">AddCart</button>
                                             </div>
+                                            </div>
+
                                             
                                         </div>
                                         

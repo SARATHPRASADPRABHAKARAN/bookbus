@@ -41,7 +41,7 @@ module.exports = {
         .collection(collection.USER_COLLCTION)
         .findOne({ email: userData.email });
       if (user.block) {
-        console.log("blocked 0000");
+      
         response.status = 4;
         resolve(response);
       } else {
@@ -100,6 +100,7 @@ module.exports = {
   },
 
   updateData: (proid, data) => {
+    let Number=parseInt(data.number)
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collection.USER_COLLCTION)
@@ -109,7 +110,7 @@ module.exports = {
             $set: {
               username: data.username,
               email: data.email,
-              number: data.number,
+              number: Number,
             },
           }
         )
@@ -763,8 +764,39 @@ chagePaymentStatus:(orderId)=>{
 },
 
 
+Mobliecheck:(mobile)=>{
+  console.log("thkjhlhfa")
+ console.log("the mobike is ",mobile);
+
+  return new Promise(async(resolve,reject)=>{
+    let num =await db.get().collection(collection.USER_COLLCTION).findOne({number:mobile})
+    console.log(num,"THE NUM");
+    if(num){
+      let response={}
+      response.status=true
+      resolve(response)
+    }
+    
+    else if(num===null){
+    
+    
+     resolve(response)
+     console.log('user',response)
+    }
+  })
+},
 
 
+
+
+getUserByMobile:(phone)=>{
+  return new Promise(async(resolve,reject)=>{
+    let user = await db.get().collection(collection.USER_COLLCTION).findOne({number:phone})
+    if(user){
+      resolve(user)
+    }
+  })
+}
 
 
 } 

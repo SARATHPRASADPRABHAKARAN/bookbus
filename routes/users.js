@@ -5,7 +5,9 @@ const session = require("express-session");
 const { Db } = require("mongodb");
 const { response } = require("express");
 const { post } = require("./admin");
-
+const config=require('../conection/otp')
+const client=require("twilio")("AC4192358acfae0a86647cb2b7d1491091","e805167b5b2c5565949e56e880806560")
+var phone
 /* GET users listing. */
 router.get("/",async function (req, res) {
   let session = req.session.user;
@@ -254,6 +256,99 @@ userHelper.verifyPayment(req.body).then(()=>{
 }).catch((err)=>{
   res.json({status:false})
 })
+})
+
+router.post('/otplogin',(req,res)=>{
+  console.log("hello");
+  let mobile =parseInt(req.body.Mobile)
+  phone = mobile
+console.log("Mobilr",mobile)
+
+let response={}
+userHelper.Mobliecheck(mobile).then((response)=>{
+
+  if(response.status==true)
+  {
+  client
+  .verify
+  .services("VA7cbc13e1ac35fb926ccd3a998b8886f5")
+ .verifications.create({
+   to:`+91${mobile}`,
+   channel:"sms"
+   
+ })
+ .then((data)=>{
+   response.otp=true
+   console.log(data)
+   res.json({response})
+
+ }).catch((err)=>{
+   console.log(err);
+ })
+
+}
+else {
+
+  res.json({response})
+}
+})
+ 
+})
+
+
+
+
+// router.post('/otplogin',(req,res)=>{
+// let mobile =req.body.Mobile
+// console.log("Mobilr",mobile)
+// let response={}
+// userHelper.Mobliecheck(mobile).then(()=>{
+//   client
+//   .verify
+//   .services(config.serviceID)
+//  .create({
+//    to:'91'+mobile,
+//    channel:"sms"
+//  })
+//  .then((data)=>{
+//    response.data=data
+//    response.otp=true
+//    res.json({number:true})
+//  })
+// })
+
+  
+
+  
+
+// })
+
+
+
+router.post('/otpsubmit',(req,res)=>{
+
+    let otp=parseInt(req.body.otp)
+    let response={}
+    console.log('wretr',req.body.otp);
+    client
+         .verify
+         .services("VA7cbc13e1ac35fb926ccd3a998b8886f5")
+         .verificationChecks
+        .create({
+          to:`+91${phone}`,
+          code:otp
+        })
+        .then((data)=>{
+          userHelper.getUserByMobile(phone).then((user)=>{
+            response.data=data
+            response.otp=true
+            req.session.user=user
+            res.json({otp:true})
+          })
+         
+        })
+
+
 })
 
 
