@@ -258,6 +258,12 @@ userHelper.verifyPayment(req.body).then(()=>{
 })
 })
 
+
+
+
+
+//OTP Login  
+
 router.post('/otplogin',(req,res)=>{
   console.log("hello");
   let mobile =parseInt(req.body.Mobile)

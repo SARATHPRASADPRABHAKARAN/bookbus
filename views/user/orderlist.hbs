@@ -6,12 +6,12 @@
 
             <thead>
                 <tr>
-                    <th>Index
-                    </th>
+                    <th>
+                    Date</th>
                     <th>Payment Mode</th>
                     <th>Total Amount</th>
                     <th>Status</th>
-                    <th></th>
+                    <th>Details</th>
                     <th></th>
                     
                 </tr>
@@ -21,14 +21,14 @@
                 {{#each orders}}
                 <tr>
                    
-                   <td > </td>
-                    <td></td>
+                   <td > {{this.Date}}</td>
+                    <td>{{this.paymentmethod}}</td>
                     <td>{{this.Totalamount}}</td>
-                    <td></td>
+                    <td>{{this.status}}</td>
         
-                    <td></td>
+                    
             
-                      <td><a href="/viewproducts/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                      <td><a href="/viewproducts/{{this._id}}" class="btn btn-primary">Product details</a></td>
                       
                    
                 </tr>
