@@ -1,4 +1,5 @@
 const { compareSync } = require("bcrypt");
+const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 var session = require("express-session");
@@ -321,5 +322,32 @@ router.get("/delete-category/:id", (req, res) => {
     res.redirect("/category-manage");
   });
 });
+
+
+
+
+
+router.get('/adminorder',async(req,res)=>{
+  let orders= await userhelper.admingetallOrders()
+     res.render('admin/admin-order',{admin:req.session.username,ses:true,orders})
+   })
+
+
+
+   router.post('/orderstatus',async(req,res)=>{
+     console.log("reached hereee",req.body.id,req.body.statusis);
+     let status1=req.body.statusis
+     let status= await userhelper.statusChange(req.body.id,status1).then((response)=>{
+      res.json({response})
+     })
+     
+   })
+
+
+
+
+
+
+
 
 module.exports = router;

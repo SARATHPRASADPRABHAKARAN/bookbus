@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <section class="content-header">
+
+
+        <table id="example" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>
+                        Date</th>
+                    <th>Payment Mode</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each orders}}
+                <tr>
+
+                    <td> {{this.Date}}</td>
+                    <td>{{this.paymentmethod}}</td>
+                    <td>{{this.Totalamount}}</td>
+                    <td>{{this.status}}</td>
+                    <td>
+                         <div class="input-group">
+                        <select class="custom-select"  id="selectstatus{{this._id}}" >
+                            <option value=""></option>
+                            <option value="shipped" >shipped</option>
+                            <option value="delivered" >delivered</option>
+                            <option value="canceled" >canceled</option>
+                            
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                onclick="changestat('{{this._id}}')">Submit</button>
+                        </div>
+                         </div>
+
+                    </td>
+
+
+
+                    <td><a href="/viewproducts/{{this._id}}" class="btn btn-primary">Product details</a></td>
+
+
+                </tr>
+                {{/each}}
+
+            </tbody>
+
+
+        </table>
+
+
+        <script>
+
+            function test(sel) {
+  console.log('thiss',sel.options[sel.selectedIndex].text);
+}
+
+function changestat(id){
+    console.log("ajay")
+
+        var e = document.getElementById('selectstatus'+id)
+        
+        var statusis = e.options[e.selectedIndex].text;
+
+        
+
+
+
+ console.log("status is ",statusis)
+   
+    $.ajax({
+        method:'POST',
+        data:{
+
+            id,
+            statusis
+        },
+        url:'/orderstatus',
+        success:(response)=>{
+
+           location.reload()
+        }
+    })
+    
+}
+ 
+                
+       
+        </script>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>

@@ -796,7 +796,37 @@ getUserByMobile:(phone)=>{
       resolve(user)
     }
   })
+},
+
+
+
+
+
+admingetallOrders:()=>{
+  return new Promise((resolve,reject)=>{
+  let orders=  db.get().collection(collection.ORDER_COLLCTION).find().toArray()
+      resolve(orders)
+  
+  })
+
+},
+
+
+
+
+
+
+
+statusChange:(proId,status1)=>{
+  return new Promise((resolve,reject)=>{
+    let status= db.get().collection(collection.ORDER_COLLCTION).updateOne({_id:objectId(proId)},{$set:{status:status1}})
+    resolve(status)
+  })
 }
+
+
+
+
 
 
 } 
