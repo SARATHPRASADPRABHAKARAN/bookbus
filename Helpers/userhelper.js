@@ -805,7 +805,7 @@ getUserByMobile:(phone)=>{
 admingetallOrders:()=>{
   return new Promise((resolve,reject)=>{
   let orders=  db.get().collection(collection.ORDER_COLLCTION).find().toArray()
-      resolve(orders)
+  resolve(orders)
   
   })
 
@@ -822,9 +822,68 @@ statusChange:(proId,status1)=>{
     let status= db.get().collection(collection.ORDER_COLLCTION).updateOne({_id:objectId(proId)},{$set:{status:status1}})
     resolve(status)
   })
-}
+},
 
 
+
+
+
+totalorders:()=>{
+  return new Promise((resolve,reject)=>{
+  let orders=  db.get().collection(collection.ORDER_COLLCTION).find().count()
+  resolve(orders)
+  })
+
+},
+
+
+ 
+
+
+totalcanseledoders:()=>{
+return new Promise((resolve,reject)=>{
+  let cansled= db.get().collection(collection.ORDER_COLLCTION).find({status:"canceled"}).count()
+  resolve(cansled)
+})
+},
+
+
+
+
+
+totalRevenue: () => {
+
+  return new Promise(async (resolve, reject) => {
+
+     let y = await db.get().collection(collection.ORDER_COLLCTION). aggregate([{
+        $group: {
+           _id: null,
+           Totalamount: {
+              $sum: "$Totalamount"
+           }
+        }
+     }]).toArray()
+
+     resolve(y)
+
+  })
+},
+
+totalshippedoders:()=>{
+  return new Promise((resolve,reject)=>{
+    let cansled= db.get().collection(collection.ORDER_COLLCTION).find({status:"shipped"}).count()
+    resolve(cansled)
+  })
+  },
+
+
+  totalDeliveredoders:()=>{
+    return new Promise((resolve,reject)=>{
+      let cansled= db.get().collection(collection.ORDER_COLLCTION).find({status:"delivered"}).count()
+      resolve(cansled)
+    })
+    },
+  
 
 
 

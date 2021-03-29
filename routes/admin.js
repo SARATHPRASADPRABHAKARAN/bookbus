@@ -8,13 +8,21 @@ const userhelper = require("../Helpers/userhelper");
 var valurs = { name: "sarath", password: "12345" };
 
 /* GET home page. */
-router.get("/admin", function (req, res, next) {
+router.get("/admin",async function (req, res, next) {
   let session = req.session.username;
   console.log("iuytgyujghb", session);
   if (session) {
-    res.render("admin/adminhome", { admin: true });
+  let shipped = await userhelper.totalshippedoders()
+  let orders= await userhelper.totalorders()
+  let canceled= await userhelper.totalcanseledoders()
+   let Revennue= await userhelper.totalRevenue()
+   let delivered= await userhelper.totalDeliveredoders()
+   console.log("sarath prasad",Revennue)
+   console.log("sarth",canceled)
+   console.log('sarath',orders)
+    res.render("admin/adminhome", { admin: true,orders, canceled,shipped,delivered});
   } else {
-    res.render("admin/adminlogin", { err: req.session.logginerr, no: true });
+    res.render("admin/adminlogin", { err: req.session.logginerr, no: true});
     req.session.logginerr = false;
   }
 });
