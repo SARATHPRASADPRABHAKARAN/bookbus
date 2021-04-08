@@ -16,7 +16,10 @@ const fileUpload=require('express-fileupload')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutDir:__dirname+'/views/layout/',partialDir:__dirname+'/views/partials/'}))
+app.engine('hbs',hbs({helpers:{
+  ifEquals: function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+}},extname:'hbs',defaultLayout:'layout',layoutDir:__dirname+'/views/layout/',partialDir:__dirname+'/views/partials/'}))
 app.use(logger('dev'));
 app.use(express.json());
 

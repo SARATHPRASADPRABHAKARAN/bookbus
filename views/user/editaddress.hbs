@@ -1,0 +1,53 @@
+<div class="col-lg-8">
+                           <h3>Address</h3> 
+
+
+                           
+                            <form class="row contact_form" action="/editaddress/{{addressone._id}}" method="post" novalidate="novalidate">
+                            
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="first" name="firstname" value="{{addressone.details.firstname}}" />
+                                    
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="last" name="lastname" value="{{addressone.details.lastname}}" />
+                                    
+                                </div>
+                                
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="number" name="number"value=" {{addressone.details.number}}" />
+                                    
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="email" name="email" value="{{addressone.details.email}}" />
+                                    
+                                </div>
+                                
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="add1" name="address"value=" {{addressone.details.address}}" />
+                                    
+                                </div>
+                                
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="city" name="city" value="{{addressone.details.city}}" />
+                                    
+                                </div>
+                               <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="city" name="state" value="{{addressone.details.state}}" />
+                               </div>
+                                
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="zip" name="pincode"
+                                       value="{{addressone.details.pincode}}" placeholder="Postcode/ZIP" />
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <input type="text" name="userId" value=""hidden>
+                                    
+                                    <button type="submit"  class="btn btn-primary mt-5">Edit Address</button>
+                                </div>
+                                
+                                
+                            </form>
+                            
+                        </div>

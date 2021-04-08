@@ -97,6 +97,7 @@
                         <input id="filebutton" name="image" class="input-file"  onchange="viewImg(event)"  type="file" accept="image/*">
                     </div>
                 </div>
+                
                 <!-- File Button -->
 
 
@@ -124,5 +125,15 @@
         console.log("kjwhw")
         document.getElementById('viewImage').src=URL.createObjectURL(event.target.files[0])
     }
+     function viewImg1(event){
+        console.log("kjwhw")
+        document.getElementById('viewImage1').src=URL.createObjectURL(event.target.files[0])
+    }
+    
+     function viewImg2(event){
+        console.log("kjwhw")
+        document.getElementById('viewImage2').src=URL.createObjectURL(event.target.files[0])
+    }
+    
     
 </script>

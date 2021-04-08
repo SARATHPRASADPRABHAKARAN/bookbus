@@ -77,21 +77,16 @@
                 <div class="col-xl-12">
                     <div class="selling-active">
 
-
-
-
-
-
                         {{#each products}}
 
                         <div class="properties pb-20">
-                            <div class="properties-card">
+                            <div class="properties-card" style="max-height: 200px;">
                                 <div class="properties-img">
-                                    <a href="/view-single/{{this._id}}"><img src="product-images/{{this._id}}.jpg" style="height: 16rem;"
-                                            alt="" /></a>
+                                    <a href="/view-single/{{this._id}}"><img src="product-images/{{this._id}}.jpg"
+                                            style="height: 16rem;" alt="" /></a>
                                 </div>
-                                <div class="properties-caption">
-                                    <h5><a href="/view-single/{{this._id}}">{{this.bookname}}</a></h5>
+                                <div class="properties-caption product-info">
+                                    <h5 class="bookname"><a href="/view-single/{{this._id}}">{{this.bookname}}</a></h5>
                                     <p>{{this.authorname}}</p>
                                     <div class="properties-footer d-flex justify-content-between align-items-center">
                                         <div class="review">
@@ -103,27 +98,28 @@
                                                 <i class="fas fa-star-half-alt"></i>
                                             </div>
                                             <p><span></span> {{this.language}}</p>
-                                             <div class="price">
-                                            <span>Rs.{{this.price}}</span>
-                                        </div>
-                                        <div>
-                                         <button   onclick="addToCart('{{this._id}}')"  type="submit" class="btn btn-danger">Add  to Cart</button>
-                                        </div>
-                                            
+                                            <div class="price">
+                                                <span>Rs.{{this.price}}</span>
+                                            </div>
+                                            <div>
+                                                <button onclick="addToCart('{{this._id}}')" type="submit"
+                                                    class="btn btn-danger">Add to Cart</button>
+                                            </div>
+
                                         </div>
 
-                                       
-                                        
+
+
                                     </div>
-                                    
 
-                                    
+
+
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
-                        
+
                         {{/each}}
 
                     </div>
@@ -168,7 +164,7 @@
                                             </div>
                                             <p>(120 Review)</p>
                                         </div>
-                                        <a  class="border-btn">View Details</a>
+                                        <a class="border-btn">View Details</a>
                                     </div>
                                 </div>
 
@@ -223,14 +219,14 @@
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
                                     role="tab" aria-controls="nav-one" aria-selected="true">All</a>
-                                <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" role="tab"
-                                    aria-controls="nav-two" aria-selected="false">Horror</a>
-                                <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" role="tab"
-                                    aria-controls="nav-three" aria-selected="false">Thriller</a>
-                                <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" h role="tab"
-                                    aria-controls="nav-four" aria-selected="false">Science Fiction</a>
-                                <a class="nav-link" id="nav-five-tab" data-bs-toggle="tab" role="tab"
-                                    aria-controls="nav-five" aria-selected="false">History</a>
+                                <a class="nav-link" id="nav-two-tab" href="/category1"
+                                       >Biography</a>
+                                <a class="nav-link" id="nav-three-tab" href="category2">History</a>
+                                     
+                                <a class="nav-link" id="nav-four-tab"  role="tab"href="category3"
+                                    aria-controls="nav-four" aria-selected="false"> Fiction</a>
+                                <a class="nav-link" id="nav-five-tab"  role="tab"href="category4"
+                                    aria-controls="nav-five" aria-selected="false">Fantasy</a>
                             </div>
                         </nav>
                     </div>
@@ -241,21 +237,25 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
 
-                    <div class="row">
+                    <div class="row" id="myItems">
 
 
                         {{#each products}}
 
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                            <div class="properties pb-30">
-                                <div class="properties-card">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 myProd">
+                            <div class="properties pb-30" >
+                                <div class="properties-card product-item" style="min-height: 300px;" >
                                     <div class="properties-img">
                                         <a href="/view-single/{{this._id}}"><img src="product-images/{{this._id}}.jpg"
                                                 alt="" style="height: 16rem;" /></a>
                                     </div>
-                                    <div class="properties-caption properties-caption2">
-                                        <h3><a href="/view-single/{{this._id}}" style="width: 40%; height:60%"><h6 >{{this.bookname}}</h6></a></h3>
-                                        <p><h6 style="font-size:small">{{this.authorname}}</h6></p>
+                                    <div class="properties-caption properties-caption2 product-info">
+                                        <h3><a href="/view-single/{{this._id}}" style="width: 40%; height:60%">
+                                                <h6 class="bookname">{{this.bookname}}</h6>
+                                            </a></h3>
+                                        <p>
+                                        <h6 style="font-size:small">{{this.authorname}}</h6>
+                                        </p>
                                         <div
                                             class="properties-footer d-flex justify-content-between align-items-center">
                                             <div class="review">
@@ -263,21 +263,28 @@
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
                                                     
+                                                    {{#if this.discount }}
+                                                    <li>{{this.discount}}%offer </li>
+                                                    {{/if}}
+                                                
+                                                
+
                                                 </div>
                                                 <div class="price">
-                                                <span>{{this.price}}</span>
-                                            </div>
-                                            <div>
+                                                    <span>Rs.{{this.price}}</span>
+                                                    
+                                                </div>
+                                                <div>
 
-                                                <button    onclick="addToCart('{{this._id}}')"  type="submit" class="btn btn-lg btn-danger">AddCart</button>
-                                            </div>
+                                                    <button onclick="addToCart('{{this._id}}')" type="submit"
+                                                        class="btn btn-lg btn-danger">AddCart</button>
+                                                </div>
                                             </div>
 
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -961,8 +968,32 @@
 }
 </script>
 
+<script>
+    function myFunction() {
+        var input, filter, cards, cardContainer,h3,a, h6, title, i;
+        input = document.getElementById("myFilter");
+        filter = input.value.toUpperCase();
+        cardContainer = document.getElementById("myItems");
+        cards = cardContainer.getElementsByClassName("product-item");
+        myProd = document.getElementsByClassName("myProd")
 
-{{!-- <script src="assets/js/script.js" ></script> --}}
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".product-info h3 a h6.bookname");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                myProd[i].style.display = "";
+            } else {
+                myProd[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
+
+
+
+
+{{!--
+<script src="assets/js/script.js"></script> --}}
 <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="assets/js/popper.min.js"></script>

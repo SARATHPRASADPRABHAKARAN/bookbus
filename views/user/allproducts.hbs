@@ -1,0 +1,64 @@
+<div class="content-wrapper mt-5">
+  <section class="content-header">
+
+
+    <div class="container">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+          <h1 style="padding-left: 500Px;" >allproducts</h1>
+          {{#if noproducts}}
+			<h2 style="text-align: center;">   ---     No products were found :( </h1>
+						{{/if}}
+          <div class="row mt-5" id="myItems">
+
+           {{#each products}}
+
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 myProd">
+              <div class="properties pb-30">
+                <div class="properties-card product-item">
+                  <div class="properties-img">
+                    <a href="/view-single/{{this._id}}"><img src="product-images/{{this._id}}.jpg" alt=""
+                        style="height: 16rem;" /></a>
+                  </div>
+                  <div class="properties-caption properties-caption2 product-info">
+                    <h3><a href="/view-single/{{this._id}}" style="width: 40%; height:60%">
+                        <h6 class="bookname">{{this.bookname}}</h6>
+                      </a></h3>
+                    <p>
+                    <h6 style="font-size:small">{{this.authorname}}</h6>
+                    </p>
+                    <div class="properties-footer d-flex justify-content-between align-items-center">
+                      <div class="review">
+                        <div class="rating">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+
+                        </div>
+                        <div class="price">
+                          <span>Rs.{{this.price}}</span>
+                        </div>
+                        <div>
+
+                          <button onclick="addToCart('{{this._id}}')" type="submit"
+                            class="btn btn-lg btn-danger">AddCart</button>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

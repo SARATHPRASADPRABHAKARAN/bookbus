@@ -1,0 +1,57 @@
+
+    
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <nav>
+      <div> <a href="/new-coupon" class="btn btn-info">Generate new Coupon</a>
+
+
+       
+
+      
+    </nav>
+
+
+        <table id="example" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>index</th>
+                    
+                    <th>offer rate</th>
+                    
+                    <th>coupon</th>
+                    <th>status</th>
+                    <th>price</th>
+                    
+                   
+                    
+                </tr>
+            </thead>
+            {{#each coupons}}
+            <tbody>
+                <tr>
+                   
+                   
+                    <td>{{@index}}</td>
+                    <td>{{this.offer}}</td>
+                    <td>{{this.coupon}}</td>
+        
+                    <td>{{this.status}}</td>
+                
+
+                      <td><a href="/delete-coupon/{{this._id}}"><button class="btn btn-danger">Delete</button></a></td>
+
+                      
+                </tr>
+
+            </tbody>
+            {{/each}}
+
+        </table>
+
+
+    </section>
+</div>

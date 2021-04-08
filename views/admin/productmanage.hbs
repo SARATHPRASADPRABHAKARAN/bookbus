@@ -12,6 +12,9 @@
                     <th>Author</th>
                     <th>Price</th>
                     <th></th>
+                    <th> <a href="/addproduct" style="align-self: center;"><button style="background-color: rgb(113, 122, 221);">
+                <h6 style="color: azure;">AddProduct</h6>
+            </button></a></th>
                     
                 </tr>
             </thead>
@@ -25,7 +28,10 @@
                     <td>{{this.authorname}}</td>
         
                     <td>{{this.price}}</td>
-            
+
+                     
+                      
+                           
                       <td><a href="/editproduct/{{this._id}}" class="btn btn-primary">Edit</a></td>
                       
                     <td><a href="/delete-product/{{this._id}}" class="btn btn-danger "
@@ -37,8 +43,6 @@
 
         </table>
 
-<a href="/addproduct" style="align-self: center;"><button style="background-color: rgb(113, 122, 221);">
-                <h6 style="color: azure;">AddProduct</h6>
-            </button></a>
+
     </section>
 </div>

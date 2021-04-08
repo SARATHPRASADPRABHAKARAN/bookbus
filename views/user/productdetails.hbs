@@ -116,6 +116,10 @@
                   <div class="features-img">
                     <img style="width: 300px; height:500px" src="/product-images/{{product._id}}.jpg" alt="">
                   </div>
+                  <div class="features-img">
+                    <img style="width: 300px; height:500px" src="/product-images/{{product._id}}2.jpg" alt="">
+                  </div>
+
                   <div class="features-caption">
                     <h3>{{product.bookname}}</h3>
                     <p>By {{product.authorname}}</p>
@@ -132,8 +136,12 @@
                       </div>
                       <p>({{product.language}})</p>
                     </div>
-                    <a href="#" class="white-btn mr-10">Add to Cart</a>
-                    <a href="#" class="border-btn share-btn"><i class="fas fa-share-alt"></i></a>
+
+
+                    {{!-- <button onclick="addToCart('{{this._id}}')" type="submit"
+                      class="btn btn-lg btn-danger">AddCart</button> --}}
+
+                    {{!-- <a href="#" class="border-btn share-btn"><i class="fas fa-share-alt"></i></a> --}}
                   </div>
                 </div>
               </div>
@@ -151,18 +159,18 @@
           <div class="offset-xl-1 col-xl-10">
             <div class="nav-button f-left">
 
-              <nav>
+              {{!-- <nav>
                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                   <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab"
                     aria-controls="nav-one" aria-selected="true">Description</a>
-                  <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" role="tab"
-                    aria-controls="nav-two" aria-selected="false">Author</a>
-                  <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" role="tab"
-                    aria-controls="nav-three" aria-selected="false">Comments</a>
-                  <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab"  role="tab"
-                    aria-controls="nav-four" aria-selected="false">Review</a>
+                  <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" role="tab" aria-controls="nav-two"
+                    aria-selected="false">Author</a>
+                  <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" role="tab" aria-controls="nav-three"
+                    aria-selected="false">Comments</a>
+                  <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" role="tab" aria-controls="nav-four"
+                    aria-selected="false">Review</a>
                 </div>
-              </nav>
+              </nav> --}}
 
             </div>
           </div>
@@ -441,3 +449,47 @@
 <!-- Mirrored from preview.colorlib.com/theme/abcbook/book-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 10 Mar 2021 13:22:45 GMT -->
 
 </html>
+
+<script>
+    function addToCart(proId) {
+    
+        $.ajax({
+            url: '/usercart/' + proId,
+            method: 'get',
+            success: (response) => {
+                if (response.status) {
+                    
+                    let count = $('#cart-count').val()
+
+                    console.log("countntj", count)
+                    count = parseInt(count) + 1
+                    document.getElementById("cart-count-value").innerHTML = count
+                    document.getElementById("cart-count").value = count
+
+
+                }
+            }
+        })
+    }
+</script>
+
+<script>
+    function myFunction() {
+        var input, filter, cards, cardContainer,h3,a, h6, title, i;
+        input = document.getElementById("myFilter");
+        filter = input.value.toUpperCase();
+        cardContainer = document.getElementById("myItems");
+        cards = cardContainer.getElementsByClassName("product-item");
+        myProd = document.getElementsByClassName("myProd")
+
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".product-info h3 a h6.bookname");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                myProd[i].style.display = "";
+            } else {
+                myProd[i].style.display = "none";
+            }
+        }
+    }
+
+</script>

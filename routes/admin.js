@@ -4,36 +4,46 @@ var express = require("express");
 var router = express.Router();
 var session = require("express-session");
 const userhelper = require("../Helpers/userhelper");
+const moment = require("moment");
+const today = moment();
+const voucher_codes = require('voucher-code-generator');
+var base64ToImage = require("base64-to-image");
+const { getallCategory } = require("../Helpers/userhelper");
+const { report } = require("./users");
 
 var valurs = { name: "sarath", password: "12345" };
 
 /* GET home page. */
-router.get("/admin",async function (req, res, next) {
+router.get("/admin", async function (req, res, next) {
   let session = req.session.username;
-  console.log("iuytgyujghb", session);
+  
   if (session) {
-  let shipped = await userhelper.totalshippedoders()
-  let orders= await userhelper.totalorders()
-  let canceled= await userhelper.totalcanseledoders()
-   let Revennue= await userhelper.totalRevenue()
-   let delivered= await userhelper.totalDeliveredoders()
-   console.log("sarath prasad",Revennue)
-   console.log("sarth",canceled)
-   console.log('sarath',orders)
-    res.render("admin/adminhome", { admin: true,orders, canceled,shipped,delivered});
+    let shipped = await userhelper.totalshippedoders();
+    let orders = await userhelper.totalorders();
+    let canceled = await userhelper.totalcanseledoders();
+    let Revennue = await userhelper.totalRevenue();
+    let delivered = await userhelper.totalDeliveredoders();
+    
+    
+    
+    
+    res.render("admin/adminhome", {
+      admin: true,
+      orders,
+      canceled,
+      shipped,
+      delivered,
+      Revennue
+    });
   } else {
-    res.render("admin/adminlogin", { err: req.session.logginerr, no: true});
+    res.render("admin/adminlogin", { err: req.session.logginerr, no: true });
     req.session.logginerr = false;
   }
 });
 
-
-
-
-
 //login
 router.post("/adminlogin", function (req, res) {
-  console.log("evide ethi");
+  
   var username = req.body.username;
   var password = req.body.password;
   if (username == valurs.name && password == valurs.password) {
@@ -46,61 +56,47 @@ router.post("/adminlogin", function (req, res) {
   }
 });
 
-
-
-
-
 //logout
 router.get("/logout2", (req, res) => {
-  console.log("hai");
+  
   req.session.username = null;
 
   res.redirect("/admin");
 });
 
-
-
-
-
 //edit user
 
 router.get("/useredit/:id", async (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
-  if (session) {
-    console.log("parasad");
+  if (session) { 
+    
     let proid = req.params.id;
     let product = await userhelper.getoneData(proid);
-    console.log(product);
+    
     res.render("admin/edituser", { product, admin: true });
   } else {
     res.redirect("/admin");
   }
 });
 
-
-
-
 router.post("/edituser/:id", (req, res) => {
   let proid = req.params.id;
-  console.log(req.body);
+  
 
   userhelper.updateData(proid, req.body).then((data) => {
-    console.log(data);
+    
     res.redirect("/usermanage");
   });
 });
 
-
-
-
 //usermanage
 
 router.get("/usermanage", (req, res) => {
-  console.log("sarath");
+  
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
     userhelper.getdata().then((data) => {
@@ -111,10 +107,6 @@ router.get("/usermanage", (req, res) => {
   }
 });
 
-
-
-
-
 //userdelete
 
 router.get("/delete/:id", (req, res) => {
@@ -123,8 +115,6 @@ router.get("/delete/:id", (req, res) => {
     res.redirect("/usermanage");
   });
 });
-
-
 
 //block
 
@@ -139,18 +129,14 @@ router.get("/block/:id", (req, res) => {
   }
 });
 
-
-
-
-
 //unblock
 
 router.get("/unblock/:id", (req, res) => {
-  console.log("user");
+  
   let sess = req.session.username;
   if (sess) {
     userhelper.unblockuser(req.params.id).then((data) => {
-      console.log(data);
+      
       res.redirect("/usermanage");
     });
   } else {
@@ -158,49 +144,77 @@ router.get("/unblock/:id", (req, res) => {
   }
 });
 
-
-
-
 //addproduct
 router.get("/addproduct", (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
     userhelper.getallCategory().then((data) => {
-      console.log("data", data);
-      res.render("admin/addproduct", { admin: true, data });
+      
+      res.render("admin/addproduct", { no: true, data });
     });
   } else {
     res.redirect("/admin");
   }
 });
 
-
-
-
 router.post("/addproduct", (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
-    console.log("FHHGC");
-    console.log("req", req.body);
-    req.body.price=parseInt(req.body.price)
+
+
+
+    
+  
+    req.body.price = parseInt(req.body.price);
     userhelper.addproduct(req.body, (id) => {
       let image = req.files.image;
-      console.log(req.files.image);
+      let image2=req.files.image2
+      let image3=req.files.image3
 
-      image.mv("./public/product-images/" + id + ".jpg", (err) => {
-        console.log("errr b4");
-        if (!err) {
-          console.log("no err");
+      var base64Str = req.body.base1;
+      var base64Str1 = req.body.base2;
+      var base64Str2 = req.body.base3;
 
-          res.render("admin/addproduct");
-        } else {
-          console.log("err", err);
-        }
-      });
+
+       delete req.body.base1
+       delete req.body.base2
+       delete req.body.base3
+
+
+      if(base64Str1){
+        
+      }
+      if(base64Str2){
+        
+      }
+      
+
+      var path = "./public/product-images/";
+      var optionalObj = { fileName: id, type: "jpg" };
+      var optionalObj2 = { fileName: id+'2', type: "jpg" };
+      var optionalObj3 = { fileName: id+'3', type: "jpg" };
+
+
+      base64ToImage(base64Str, path, optionalObj);
+      base64ToImage(base64Str1, path, optionalObj2);
+      base64ToImage(base64Str2, path, optionalObj3);
+
+
+
+      // image.mv("./public/product-images/" + id + ".jpg", (err) => {
+      //   console.log("errr b4");
+      //   if (!err) {
+      //     console.log("no err");
+
+      //     res.render("admin/addproduct");
+      //   } else {
+      //     console.log("err", err);
+      //   }
+      // });
       res.redirect("/productmanage");
     });
   } else {
@@ -208,67 +222,58 @@ router.post("/addproduct", (req, res) => {
   }
 });
 
-
-
-
 router.get("/productmanage", async (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
-    console.log("sarath");
+    
     let products = await userhelper.getallproducts();
 
     res.render("admin/productmanage", { admin: true, products });
-    console.log("uhiu");
+    
   } else {
     res.redirect("/admin");
   }
 });
 
-
-
-
 //edit product
 
 router.get("/editproduct/:id", async (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
-    console.log("parasad");
+    
     let proid = req.params.id;
     let product = await userhelper.getproductbyId(proid);
     let getcategory = await userhelper.getallCategory();
-    console.log(product);
+    
     res.render("admin/editProduct", { product, admin: true, getcategory });
   } else {
     res.redirect("/admin");
   }
 });
 
-
-
-
 router.post("/editproduct/:id", (req, res) => {
   let proid = req.params.id;
-  console.log("haii", req.body);
-  req.body.price=parseInt(req.body.price)
+  
+  req.body.price = parseInt(req.body.price);
   userhelper.updateproduct(proid, req.body).then((product) => {
     if (req.files.image == null) {
-      console.log("yhgfv");
+      
       res.redirect("/productmanage");
     } else {
       let image = req.files.image;
 
       if (image) {
         image.mv("./public/product-images/" + proid + ".jpg", (err) => {
-          console.log("errr b4");
+          
           if (!err) {
-            console.log("no err");
+            
             res.redirect("/productmanage");
           } else {
-            console.log("err", err);
+            
           }
         });
       } else {
@@ -277,10 +282,6 @@ router.post("/editproduct/:id", (req, res) => {
     }
   });
 });
-
-
-
-
 
 router.get("/delete-product/:id", (req, res) => {
   let Proid = req.params.id;
@@ -291,7 +292,7 @@ router.get("/delete-product/:id", (req, res) => {
 
 router.get("/category-manage", (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
     userhelper.getallCategory().then((data) => {
@@ -302,12 +303,9 @@ router.get("/category-manage", (req, res) => {
   }
 });
 
-
-
-
 router.get("/add-category", (req, res) => {
   let session = req.session.username;
-  console.log(session);
+  
 
   if (session) {
     res.render("admin/add-category", { admin: true });
@@ -322,40 +320,188 @@ router.post("/add-category", (req, res) => {
   });
 });
 
-
-
-
 router.get("/delete-category/:id", (req, res) => {
   userhelper.deleteCategory(req.params.id).then(() => {
     res.redirect("/category-manage");
   });
 });
 
+router.get("/adminorder", async (req, res) => {
+  let orders = await userhelper.admingetallOrders();
+  res.render("admin/admin-order", {
+    admin: req.session.username,
+    ses: true,
+    orders,
+  });
+});
+
+router.post("/orderstatus", async (req, res) => {
+
+  let status1 = req.body.statusis;
+  let status = await userhelper
+    .statusChange(req.body.id, status1)
+    .then((response) => {
+      
+      res.json({ response });
+    });
+});
+
+router.get("/sales-report",async (req, res) => {
+let report= await userhelper.admingetallOrders();
+
+
+  res.render("admin/sales-report", { admin: req.session.username ,report});
+});
+
+router.post("/sales-report", async (req, res) => {
+  let fromDate = "" + req.body.fromdate;
+  let toDate = "" + req.body.todate;
+  let report = await userhelper.salesReport(fromDate, toDate);
+  res.render("admin/sales-report", { admin: true, report });
+});
 
 
 
 
-router.get('/adminorder',async(req,res)=>{
-  let orders= await userhelper.admingetallOrders()
-     res.render('admin/admin-order',{admin:req.session.username,ses:true,orders})
-   })
+//offermanagement
+router.get('/offermanage',async(req,res)=>{
 
-
-
-   router.post('/orderstatus',async(req,res)=>{
-     console.log("reached hereee",req.body.id,req.body.statusis);
-     let status1=req.body.statusis
-     let status= await userhelper.statusChange(req.body.id,status1).then((response)=>{
-      res.json({response})
-     })
-     
-   })
+  let offer=await userhelper.viewOffers()
+  res.render('admin/offermanage',{admin:true,offer })
+})
 
 
 
 
 
 
+//addoffer(product)
 
+router.get('/addoffer-product',async(req,res)=>{
+ let product=await userhelper.getallproducts()
+  res.render('admin/addoffer',{admin:true,product})
+})
+
+
+
+router.post('/addoffer-product', async(req,res)=>{
+let proId=req.body.bookname
+let data= req.body
+
+  let offer=await userhelper.addOfferToProduct(proId,data)
+         res.redirect('/offermanage')
+})
+
+
+
+//addoffer-(catagory)
+
+router.get('/addoffer-category',async(req,res)=>{
+  let category=await userhelper.getallCategory()
+res.render('admin/addoffer-catagory',{admin:true,category})
+})
+
+
+router.post('/addoffer-category',async(req,res)=>{
+  let data=req.body
+  let category=req.body.category
+  let offer=await userhelper. addOfferToCategory(category, data)
+  res.redirect('/offermanage')
+})
+
+
+//delete offer
+
+router.get('/deleteoffer/:id',async(req,res)=>{
+  let Proid = req.params.id;
+
+
+ let dele = await userhelper.deleteOffer(Proid)
+ res.redirect('/offermanage')
+})
+
+
+
+
+
+//coupen
+
+
+
+
+router.get('/coupen-manage',(req,res)=>{
+  userhelper.getcoupon().then((coupons) => {
+  res.render('admin/coupen-manage',{admin:true,coupons})
+})
+})
+
+
+
+router.get('/new-coupon',(req,res)=>{
+  res.render('admin/newcoupen',{admin:true})
+})
+
+
+
+
+
+
+
+
+
+router.get('/generate-couponCode', (req, res) => {
+
+  let voucher = voucher_codes.generate({
+    length: 8,
+    count: 1
+  })
+  let voucherCode = voucher[0]
+  res.send(voucherCode)
+})
+
+router.post('/new-coupon', async (req, res) => {
+
+  let coupon = req.body.coupon
+  let offer = req.body.offer
+
+  await userhelper.createCoupons(offer, coupon).then(() => {
+    res.redirect('/coupen-manage')
+  })
+
+})
+
+
+
+router.get('/delete-coupon/:id', async (req, res) => {
+
+  await userhelper.deactivateCoupon(req.params.id).then(() => {
+    res.redirect('/coupen-manage')
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get("/test", (req, res) => {
+  res.render("admin/testing", { no: true });
+});
 
 module.exports = router;

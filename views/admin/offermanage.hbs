@@ -1,0 +1,58 @@
+
+    
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <nav>
+      <div> <a href="/addoffer-product" class="btn btn-info">Add productwise offer</a>
+
+
+       <a href="/addoffer-category" class="btn btn-primary">Add Catagorywise offer</a>
+
+      
+    </nav>
+
+
+        <table id="example" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    
+                    <th>Category</th>
+                    
+                    <th>OldPrice</th>
+                    <th>discount</th>
+                    <th>price</th>
+                    
+                   
+                    
+                </tr>
+            </thead>
+            {{#each offer}}
+            <tbody>
+                <tr>
+                   
+                   
+                    <td>{{this.bookname}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.oldPrice}}</td>
+        
+                    <td>{{this.discount}}</td>
+                    <td>{{this.price}}</td>
+
+                     <td><a href="/deleteoffer/{{this._id}}" class="btn btn-danger "
+                            onclick="return confirm('are you want delete {{this.bookname}}?')">Delete</a></td>
+
+                      
+                </tr>
+
+            </tbody>
+            {{/each}}
+
+        </table>
+
+
+    </section>
+</div>

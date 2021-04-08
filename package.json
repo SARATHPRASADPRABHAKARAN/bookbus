@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "base64-to-image": "^1.0.2",
     "bcrypt": "^5.0.1",
     "chart.js": "^2.9.4",
     "cookie-parser": "~1.4.4",
@@ -15,14 +16,17 @@
     "express-handlebars": "^5.2.1",
     "express-session": "^1.17.1",
     "handlebars": "^4.7.7",
-    "hbs": "~4.0.4",
+    "handlebars-helper-equal": "^1.0.0",
+    "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.4",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
     "paypal-rest-sdk": "^1.8.1",
     "razorpay": "^2.0.6",
     "session": "^0.1.0",
-    "twilio": "^3.59.0"
+    "twilio": "^3.59.0",
+    "voucher-code-generator": "^1.1.1"
   }
 }

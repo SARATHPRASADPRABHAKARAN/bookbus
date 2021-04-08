@@ -1,0 +1,113 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+  id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <form class="form-horizontal" action="/addoffer-product" id="offer" method="POST">
+      <fieldset>
+
+        <div id="legend">
+          <legend class="">Offer</legend>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="username"> BookName</label>
+          <div class="controls">
+            <select id="bookname" name="bookname" class="input-xlarge" value="{{product.number}}">>
+              <option></option>
+              {{#each product}}
+              <option value="{{this._id}}">{{this.bookname}}</option>
+
+              {{/each}}
+
+            </select>
+
+          </div>
+        </div>
+
+
+
+
+        <div class="control-group">
+          <!-- Password-->
+          <label class="control-label" for="number">Offer</label>
+          <div class="controls">
+            <input type="tel" id="password" name="offer" placeholder="offer" maxlength="2" class="input-xlarge" required>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Username -->
+          <label class="control-label" for="username">Valid From</label>
+          <div class="controls">
+            <input type="date" id="datefrom" name="datefrom" placeholder="" class="input-xlarge" required>
+            <p class="help-block"></p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Username -->
+          <label class="control-label" for="username">Valid To </label>
+          <div class="controls">
+            <input type="date" id="dateto" name="dateto" placeholder="" class="input-xlarge" value="dateto" required>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+
+            <input type="submit" value="Add Offer" class="btn btn-success">
+
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+
+  </section>
+</div>
+
+
+<script>
+  $(function () {
+    var dtToday = new Date();
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+    $('#datefrom').attr('min', maxDate);
+    $('#dateto').attr('min', maxDate);
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script>
+
+  $(document).ready(function () => {
+    $("#offer").validate({
+      rules: {
+        bookname: {
+          required: true,
+          minlength: 3
+        },
+        offer: {
+          required: true,
+          number:true,
+          maxlength: 2
+
+        }
+      }
+    })
+  })
+</script>

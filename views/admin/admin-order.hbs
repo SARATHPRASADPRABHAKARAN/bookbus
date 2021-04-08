@@ -1,3 +1,5 @@
+
+
 <div class="content-wrapper">
     <section class="content-header">
 
@@ -11,7 +13,7 @@
                     <th>Payment Mode</th>
                     <th>Total Amount</th>
                     <th>Status</th>
-                    <th>Details</th>
+                    <th></th>
                     <th></th>
 
                 </tr>
@@ -25,13 +27,25 @@
                     <td>{{this.paymentmethod}}</td>
                     <td>{{this.Totalamount}}</td>
                     <td>{{this.status}}</td>
+                    <td></td>
                     <td>
                          <div class="input-group">
                         <select class="custom-select"  id="selectstatus{{this._id}}" >
                             <option value=" "></option>
+                            {{#ifEquals this.status "placed"}}
                             <option value="shipped" >shipped</option>
                             <option value="delivered" >delivered</option>
                             <option value="canceled" >canceled</option>
+                             {{/ifEquals}}
+                             {{#ifEquals this.status "shipped"}}
+                            <option value="delivered" >delivered</option>
+                            <option value="canceled" >canceled</option>
+                             {{/ifEquals}}
+
+                             {{#ifEquals this.status "delivered"}}
+                            <option value="canceled" >canceled</option>
+                             {{/ifEquals}}
+
                             
                         </select>
                         <div class="input-group-append">
@@ -44,7 +58,7 @@
 
 
 
-                    <td><a href="/viewproducts/{{this._id}}" class="btn btn-primary">Product details</a></td>
+                   </td>
 
 
                 </tr>
@@ -84,6 +98,8 @@ function changestat(id){
         },
         url:'/orderstatus',
         success:(response)=>{
+
+            
 
            location.reload()
         }

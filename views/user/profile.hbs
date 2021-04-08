@@ -1,0 +1,124 @@
+<main>
+  <div style="padding-top: 10%;padding-left:45%">
+
+    <img style="width: 5rem;" src="assets/img/user.png" alt="" />
+    <h3>{{details.username}}</h3>
+  </div>
+
+
+  <div class="container" style="padding-left: 35%;">
+    <div>
+      <div style=" padding-top:10% " class="col-md-4 form group float-left">
+        <h2 style="margin-left: 65px;">User Profile</h2>
+        <div style="width: 20rem;">
+          <input class="form-control" name="email" style="margin-top: 25px;" type="text" value="{{details.username}}">
+        </div>
+        <div style="width: 20rem;">
+          <input class="form-control" name="email" style="margin-top: 25px;" type="text" value="{{details.email}}">
+        </div>
+        <div style="width: 20rem;">
+          <input class="form-control" name="email" style="margin-top: 25px;" type="text" value="{{details.number}}">
+        </div>
+
+      </div>
+      <div class="float-right col-md-4" id="password" style="padding-top: 10%; display: none; ">
+        <form action="/changePassword" method="POST">
+          <h2>Change Password</h2>
+
+          <div style="width: 20rem;">
+            <div style="width: 20rem;">
+              <label>Your Current Password</label>
+              <input type="password" class="form-control" name="CurrentPassword" style="margin-top: 25px;" required />
+            </div>
+          </div>
+          <div>
+            <div style="width: 20rem;">
+              <label>New Password</label>
+              <input type="password" class="form-control" name="NewPassword" style="margin-top: 25px;" required />
+            </div>
+            {{#if psdSuccess}}
+            <p class="text-center text-success">{{psdSuccess}}</p>
+            {{/if}}
+            {{#if psdFailure}}
+            <p class="text-center text-danger">{{psdFailure}}</p>
+            {{/if}}
+          </div>
+
+          <div class="billing-back-btn">
+            <div class="billing-back">
+              <a href="" style="text-decoration: none;"><i class="icon-arrow-up-circle"></i> back</a>
+            </div>
+            <div class="billing-btn">
+              <input type="submit" class="btn btn-dark" value="Continue">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-4 " id="Editaddress" style="padding-top: 6%;  display: none; ">
+
+        <h2 style="margin-left: 70px;">ADDRESS</h2>
+        {{#each addresss}}
+        <div style="width: 20rem;">
+          <input class="form-control" name="address" style="margin-top: 25px;" type="text"
+            value="{{this.details.address}}">
+        </div>
+        <div style="width: 20rem;">
+          <input class="form-control" name="city" style="margin-top: 25px;" type="text" value="{{this.details.city}}">
+        </div>
+        <div style="width: 20rem;">
+          <input class="form-control" name="state" style="margin-top: 25px;" type="text" value="{{this.details.state}}">
+        </div>
+        <div style="width: 20rem;">
+          <input class="form-control" name="pincode" style="margin-top: 25px;" type="text"
+            value="{{this.details.pincode}}">
+        </div>
+        <div>
+          <a href="/editaddress/{{this._id}}" class="mt-5  btn btn-primary">
+            Edit Address
+          </a>
+        </div>
+        {{/each}}
+      </div>
+
+
+      <div style="padding-top: 5%; padding-right: 20%;">
+
+        <button onclick="address() " id="btaddress" class="btn btn-lg btn-danger"> Edit Address </button>
+
+
+        <button onclick="password()" id="btpassword" class="btn btn-lg btn-danger"> User Password</button>
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+</main>
+
+<script>
+  function address() {
+    $('#Editaddress').show()
+    $('#password').hide()
+    $('#btaddress').hide()
+    $('#btpassword').show()
+
+
+  }
+
+  function password() {
+    $('#Editaddress').hide()
+    $('#password').show()
+    $('#btpassword').hide()
+    $('#btaddress').show()
+
+  }
+</script>
+
+<script>
+
+
+
+  <style>
+
+  </style>

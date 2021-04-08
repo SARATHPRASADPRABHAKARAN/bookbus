@@ -1,0 +1,88 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+<form class="form-horizontal" action="/addoffer-category" method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">Offer</legend>
+    </div>
+
+    <div class="control-group">
+          <label class="control-label" for="username"> BookName</label>
+          <div class="controls">
+            <select id="bookname" name="category" class="input-xlarge"
+             required  >>
+              <option ></option>
+              {{#each category}}
+              <option value="{{this.category}}">{{this.category}}</option>
+             
+              {{/each}}
+
+            </select>
+            
+          </div>
+        </div>
+    
+   
+    
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="number">Offer</label>
+      <div class="controls">
+        <input type="number" id="offer" name="offer" placeholder="" class="input-xlarge" required >
+        <p class="help-block"></p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Valid From</label>
+      <div class="controls">
+        <input type="date" id="datefrom" name="datefrom" placeholder="" class="input-xlarge" required>
+        <p class="help-block"></p>
+      </div>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Valid To </label>
+      <div class="controls">
+        <input type="date" id="dateto" name="dateto" placeholder="" class="input-xlarge" required>
+        <p class="help-block"></p>
+      </div>
+    </div>
+ 
+   
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+      
+       <input type="submit" value="Add Offer" class="btn btn-success">
+      
+      </div>
+    </div>
+  </fieldset>
+</form>
+ 
+</section>
+</div>
+<script>
+        $(function () {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+            var maxDate = year + '-' + month + '-' + day;
+            $('#datefrom').attr('min', maxDate);
+            $('#dateto').attr('min', maxDate);
+        });
+    </script>

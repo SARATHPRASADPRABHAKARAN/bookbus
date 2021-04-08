@@ -1,8 +1,11 @@
 <div class="content-wrapper">
     <section class="content-header">
 
+
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"
             id="bootstrap-css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css"
+            integrity="sha256-FeDcPwV8ZgxG1MU5L/b2i8clOmqZJKK0eyDHqrQaXxY=" crossorigin="anonymous" />
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <!------ Include the above in your HEAD tag ---------->
@@ -19,11 +22,10 @@
                 </div>
 
                 <!-- Text input-->
-                <div class="form-group" >
+                <div class="form-group">
                     <label class="col-md-4 control-label" for="product_name">BOOK NAME</label>
                     <div class="col-md-4">
-                        <input id="product_name" name="bookname" 
-                            class="form-control input-md" required="" type="text">
+                        <input id="product_name" name="bookname" class="form-control input-md" required="" type="text">
 
                     </div>
                 </div>
@@ -32,8 +34,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="product_name_fr">AUTHOR NAME</label>
                     <div class="col-md-4">
-                        <input id="product_name_fr" name="authorname" 
-                            class="form-control input-md" required="" type="text">
+                        <input id="product_name_fr" name="authorname" class="form-control input-md" required=""
+                            type="text">
 
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                             <option selected></option>
                             {{#each data}}
                             <option value="{{this.category}}">{{this.category}}</option>
-                           {{/each}}
+                            {{/each}}
                         </select>
                     </div>
                 </div>
@@ -55,8 +57,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="available_quantity">PRICE</label>
                     <div class="col-md-4">
-                        <input id="available_quantity" name="price" class="form-control input-md"
-                            required="" type="text">
+                        <input id="available_quantity" name="price" class="form-control input-md" required=""
+                            type="text">
 
                     </div>
                 </div>
@@ -78,44 +80,374 @@
                         <textarea class="form-control" id="product_description" name="product_description"></textarea>
                     </div>
                 </div>
+            
+
 
                 <!-- Textarea -->
-                <div class="form-group">
+             <div class="form-group " style="margin-left:300px;">
+                    <div class=" col-md-4 " style="display: flex;">
+                        <div>
+                            <input type="file" name="image" required id="image" onchange="readURL(this);" />
 
-                </div>
+                            <div class=" image_container" style="width: 25px;height:300px">
+                                <img id="blah" src="#" alt="" />
+                            </div>
+                        </div>
 
-                <!-- Text input-->
+                        <!-- // Cropped image to display (only if u want) -->
+                        <div style="margin-left: 50px;">
+                            <div id="cropped_result" style="">
 
-                <!-- Text input-->
+                                <img src="" id="cropped_results" alt=""
+                                    style="margin-top:25px;width: 200px;height:300px;display:none">
 
-                <!-- File Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="filebutton">image</label>
-                    <div class="col-md-4">
-                        <img src="" style="width: 100px; height: auto;" id="viewImage" alt="">
-                        <input id="filebutton" name="image" class="input-file" onchange="viewImg(event)"  type="file" accept="image/*">
+                            </div>
+                        </div>
+                        <div style="margin-left: 50px;">
+                            <button type="button" id="crop_button">Crop</button>
+                        </div>
                     </div>
-                </div>
-                <!-- File Button -->
+                    <!-- // Will trigger crop event -->
 
 
-                <!-- Button -->
-                <div class="form-group"> <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
-                    <div class="col-md-4">
-                        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Add a New Book</button>
+                    <textarea name="base1" id="base1" cols="30" rows="10" hidden></textarea>
+
+                </div> 
+
+                
+
+                <div class="form-group " style="margin-left:300px;">
+                    <div class=" col-md-4 " style="display: flex;">
+                        <div>
+                            <input type="file" name="image2" required id="image2" onchange="readURL2(this);" />
+
+                            <div class=" image_container" style="width: 25px;height:300px">
+                                <img id="blah2" src="#" alt="" />
+                            </div>
+                        </div>
+
+                        <!-- // Cropped image to display (only if u want) -->
+                        <div style="margin-left: 50px;">
+                            <div id="cropped_result2" style="">
+
+                                <img src="" id="cropped_results2" alt=""
+                                    style="margin-top:25px;width: 200px;height:300px;display:none">
+
+                            </div>
+                        </div>
+                        <div style="margin-left: 50px;">
+                            <button type="button" id="crop_button2">Crop</button>
+                        </div>
                     </div>
+                    <!-- // Will trigger crop event -->
+
+
+                    <textarea name="base2" id="base2" cols="30" rows="10" hidden></textarea>
+
                 </div>
 
-            </fieldset>
-        </form>
-    </section>
+                {{!-- third crop --}}
+
+                <div class="form-group " style="margin-left:300px;">
+                    <div class=" col-md-4 " style="display: flex;">
+                        <div>
+                            <input type="file" name="image3" required id="image3" onchange="readURL3(this);" />
+
+                            <div class=" image_container" style="width: 25px;height:300px">
+                                <img id="blah3" src="#" alt="" />
+                            </div>
+                        </div>
+
+                        <!-- // Cropped image to display (only if u want) -->
+                        <div style="margin-left: 50px;">
+                            <div id="cropped_result3" style="">
+
+                                <img src="" id="cropped_results3" alt=""
+                                    style="margin-top:25px;width: 200px;height:300px;display:none">
+
+                            </div>
+                        </div>
+                        <div style="margin-left: 50px;">
+                            <button type="button" id="crop_button3">Crop</button>
+                        </div>
+                    </div>
+                    <!-- // Will trigger crop event -->
+
+
+                    <textarea name="base3" id="base3" cols="30" rows="10" hidden></textarea>
+
+                </div>
 </div>
+
+<!-- Text input-->
+
+<!-- Text input-->
+
+<!-- File Button -->
+
+<!-- File Button -->
+
+
+<!-- Button -->
+<div class="form-group"  style="margin-left:300px;">
+    <div class="col-md-4">
+        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Add a New
+            Book</button>
+    </div>
+</div>
+
+</fieldset>
+</form>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
+
+
 
 
 <script>
-    function viewImg(event){
-        console.log("kjwhw")
-        document.getElementById('viewImage').src=URL.createObjectURL(event.target.files[0])
+
+    function readURL(input) {
+
+        console.log('first')
+
+
+        console.log('hkjhjkh')
+
+        if (input.files && input.files[0]) {
+            $('#blah').attr('src', '');
+
+            
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+
+            
+
+
+                $('#blah').attr('src', e.target.result)
+
+            };
+            reader.readAsDataURL(input.files[0]);
+            setTimeout(initCropper1, 50);
+        }
     }
+
+    function initCropper1() {
+        console.log('9898')
     
+        var image = document.getElementById('blah');
+        var cropper = new Cropper(image, {
+            viewMode: 10,
+            aspectRatio: 9 / 16,
+            autoCropArea: 1,
+            cropBoxResizable: false,
+
+
+
+            crop: function (e) {
+
+                console.log(e.detail.x);
+                console.log(e.detail.y);
+            }
+
+        });
+
+        // On crop button clicked
+        document.getElementById('crop_button').addEventListener('click', function (event) {
+            event.preventDefault()
+            var imgurl = cropper.getCroppedCanvas().toDataURL();
+            var img = document.createElement("img");
+
+            $('#base1').val(imgurl)
+            $('#cropped_results').show()
+            document.getElementById('cropped_results').src = ""
+
+            document.getElementById('cropped_results').src = imgurl
+
+            
+        })
+    }    
 </script>
+
+<!-- second -->
+<script>
+
+    function readURL2(input) {
+
+        console.log('second')
+
+
+        console.log('hkjhjkh')
+
+        if (input.files && input.files[0]) {
+            $('#blah2').attr('src', '');
+
+            
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+
+            
+
+
+                $('#blah2').attr('src', e.target.result)
+
+            };
+            reader.readAsDataURL(input.files[0]);
+            setTimeout(initCropper, 50);
+        }
+    }
+
+    function initCropper() {
+    
+        var image = document.getElementById('blah2');
+        var cropper = new Cropper(image, {
+            viewMode: 10,
+            aspectRatio: 9 / 16,
+            autoCropArea: 1,
+            cropBoxResizable: false,
+
+
+
+            crop: function (e) {
+
+                console.log(e.detail.x);
+                console.log(e.detail.y);
+            }
+
+        });
+
+        // On crop button clicked
+        document.getElementById('crop_button2').addEventListener('click', function (event) {
+            event.preventDefault()
+            var imgurl = cropper.getCroppedCanvas().toDataURL();
+            var img = document.createElement("img");
+
+            $('#base2').val(imgurl)
+            $('#cropped_results2').show()
+            document.getElementById('cropped_results2').src = ""
+
+            document.getElementById('cropped_results2').src = imgurl
+
+            
+        })
+    }    
+</script>
+
+<!-- third -->
+<script>
+
+    function readURL3(input) {
+
+        console.log('second')
+
+
+        console.log('hkjhjkh')
+
+        if (input.files && input.files[0]) {
+            $('#blah3').attr('src', '');
+
+            
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+
+            
+
+
+                $('#blah3').attr('src', e.target.result)
+
+            };
+            reader.readAsDataURL(input.files[0]);
+            setTimeout(initCropper3, 50);
+        }
+    }
+
+    function initCropper3() {
+    
+        var image = document.getElementById('blah3');
+        var cropper = new Cropper(image, {
+            viewMode: 10,
+            aspectRatio: 9 / 16,
+            autoCropArea: 1,
+            cropBoxResizable: false,
+
+
+
+            crop: function (e) {
+
+                console.log(e.detail.x);
+                console.log(e.detail.y);
+            }
+
+        });
+
+        // On crop button clicked
+        document.getElementById('crop_button3').addEventListener('click', function (event) {
+            event.preventDefault()
+            var imgurl = cropper.getCroppedCanvas().toDataURL();
+            var img = document.createElement("img");
+
+            $('#base3').val(imgurl)
+            $('#cropped_results3').show()
+            document.getElementById('cropped_results3').src = ""
+
+            document.getElementById('cropped_results3').src = imgurl
+
+            
+        })
+    }    
+</script>
+
+<style>
+    .image_container {
+        max-width: 800px;
+        max-height: 450px;
+    }
+</style>
+<style>
+    <style>
+    .form-wizard .nav>li>a {
+        padding: 10px;
+        margin-right: 0;
+        text-align: left;
+        color: #888888;
+    }
+    .tab-right {
+        margin-left: -30px;
+        margin-top: -1px;
+    }
+    .tab-right .panel {
+        margin-right: -30px;
+    }
+    .tab-right .vd_panel-menu {
+        right: 28px;
+        top: -15px;
+    }
+    .tab-right h3 {
+        border-bottom: 1px solid #EEEEEE;
+    }
+    table .vd_radio label:after {
+        top: 0;
+    }
+    .cropper-container {
+        margin: 0 auto 20px auto;
+    }
+</style>
+
+<!-- for specific page responsive in style css -->
+<style>
+    @media (max-width: 767px) {
+        .tab-right {
+            margin-left: 0;
+            margin-top: 0;
+        }
+        .tab-right .panel {
+            margin-right: 0;
+        }
+    }
+</style>
+</style>

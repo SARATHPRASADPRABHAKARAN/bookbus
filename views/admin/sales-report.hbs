@@ -1,0 +1,99 @@
+
+<div class="content-wrapper">
+    <section class="content-header">
+        
+
+
+        <h1>Sales Report</h1>
+        <div>
+            <form method="POST" action="/sales-report" id="myform">
+  
+            <label>From Date</label>
+            <input type="date" id="fromDate" name="fromdate" onchange="handler(event)">
+             <label>To Date</label>
+            <input type="date" id="toDate" name="todate">
+
+            <button type="submit" id="button">search</button>
+            </form>
+        </div>
+
+
+<table id="salesreport" class="table table-striped" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Recipt No</th>
+                    <th>Status</th>
+                    <th></th>
+                    
+                    <th>.....</th>
+                    <th>------</th>
+                    <th>Total Ammount</th>
+                    
+                    
+                </tr>
+            </thead>
+           
+            <tbody>
+                
+                   {{#each report}}
+                   <tr id="">
+        
+                    <td>{{this.Date}}</td>
+                    <td>{{this._id}}</td>
+                    <td>{{this.status}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{this.Totalamount}}</td>
+                    </tr>
+                    {{/each}}
+            
+                     
+
+            </tbody>
+        
+
+        </table>
+
+
+
+
+    </section>
+</div>
+
+<script >
+    $(document).ready(function() {
+    $('#salesreport').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+
+
+
+
+
+
+</script>
+
+
+<script>
+        
+            function handler(e) {
+        var first = e.target.value
+        var date = new Date()
+        console.log('ttt',date)
+        console.log('vanne', first)
+        
+        document.getElementById("toDate").min = first
+        document.getElementById("toDate").max = date
+
+    }
+    
+    </script>
+
+    

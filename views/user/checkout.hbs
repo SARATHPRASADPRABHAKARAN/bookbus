@@ -29,192 +29,194 @@
             </div>
             <div class="cupon_area">
                 <div class="check_title">
-                    <h2> Have a coupon?
-                        <a href="#">Click here to enter your code</a>
-                    </h2>
-                </div>
-                <input type="text" placeholder="Enter coupon code" />
-                <a class="btn" href="#">Apply Coupon</a>
+
+                </div><input type="text" value="{{user}}" style="display:none;" id="input-user">
+                <input type="text" class="form-control" id="input-coupon" name="coupon" placeholder="Promo code">
+                <button type="coupon" id="coupon-code" onclick="applyCoupon()" class="btn btn-secondary">Reedem
+                    code</button>
             </div>
 
-            <div class="billing_details">
-                <div class="row">
-                 
-                    <div class="col-lg-8">
-                        <h3>Billing Details</h3>
-                        <form class="row contact_form" method="post" id="address-form" novalidate="novalidate">
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" placeholder="Name" id="firstname"
-                                    name="firstname" />
+        </div>
+        <p id="success" style="display: none; color: red;"><strong>*suucess coupon applied</strong></p>
+        <p id="used" style="display: none; color: red;"><strong>*coupon is alreadey used cannot apply</strong></p>
+        <p id="invalid" style="display: none; color: red;"><strong>*invalid coupon try the correct couopon code</strong>
+        </p>
+        </div>
 
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" placeholder=lastname id="lastname"
-                                    name="lastname" />
+        <div class="billing_details">
+            <div class="row">
 
-                            </div>
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <form class="row contact_form  form needs-validation"  id="addressform"
+                        novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" placeholder="Name" id="firstname" name="firstname"
+                                />
 
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" placeholder="email" id="email" name="email" />
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" placeholder=lastname id="lastname" name="lastname"
+                                 />
 
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" placeholder="address" id="address"
-                                    name="address" />
+                        </div>
 
-                            </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" placeholder="email" id="email" name="email"
+                                 />
 
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" placeholder="city" id="city" name="city" />
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" placeholder="address" id="address" name="address"
+                                />
 
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" placeholder="state" id="state" name="state" />
+                        </div>
 
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" placeholder="pincode" id="pincode"
-                                    name="pincode" />
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" placeholder="city" id="city" name="city"  />
 
-                            </div>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" placeholder="state" id="state" name="state"
+                                 />
 
-                            <div class="col-md-12 form-group">
-                                <input type="text" name="userId" value="{{user._id}}" hidden>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" placeholder="pincode" id="pincode" name="pincode"
+                                 />
 
-                            </div>
-                            <div class="payment_item">
-                                <div>
+                        </div>
 
-                                    <h6> Select Payment Method</h6>
-                                </div>
+                       
 
-                                <label class="radio-inline">
-                                    <input type="radio" name=payment value="COD">COD
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name=payment value="PAY PAL">PAY PAL
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name=payment value="RAZOR   PAY">RAZOR PAY
-                                </label>
+                       
 
 
+                        <div class="col-md-12 form-group">
+                            <input type="text" name="userId" value="{{user}}" hidden>
+                            <input type="number" id="total" name="total" value="{{total}}" hidden>
 
+                        </div>
+                        <div class="payment_item">
+                            <div>
 
-                            </div>
-
-
-
-                            <div class="col-md-6 form-group" style="margin-left: 30%;">
-
-
-                                <div class="row">
-
-                                    <div id="paypal-payment-button" name="paypal"></div>
-                                </div>
-                                <input type="submit" class="btn w-100">
+                                <h6> Select Payment Method</h6>
                             </div>
 
+                            <label class="radio-inline">
+                                <input type="radio" name=payment value="COD" >COD
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name=payment value="PAY PAL" >PAY PAL
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name=payment value="RAZOR   PAY" >RAZOR PAY
+                            </label>
 
 
-                        </form>
 
 
-                        <div>
+                        </div>
+
+
+
+                        <div class="col-md-6 form-group" style="margin-left: 30%;">
+
+
                             <div class="row">
-                                
-                                    
-                                    {{#each addresss}}
-                                    <div class="col-md-4">
-                                    <div>
-                                        <h3>address</h3>
-                                        <p>{{this.details.firstname}} <br>
-                                            {{this.details.lastname}} <br>
-                                            {{this.details.email}} <br>
-                                            {{this.details.address}} <br>
-                                            {{this.details.pincode}}</p>
-                                        <button type="submit" onclick="Passaddress('{{this.details.firstname}}',
+
+                                <div id="paypal-payment-button" name="paypal"></div>
+                            </div>
+                            <input type="submit" class="btn w-100">
+                        </div>
+
+
+
+                    </form>
+
+
+                    <div>
+                        <div class="row">
+
+
+                            {{#each addresss}}
+                            <div class="col-md-4">
+                                <div>
+                                    <h3>address</h3>
+                                    <p>{{this.details.firstname}} <br>
+                                        {{this.details.lastname}} <br>
+                                        {{this.details.email}} <br>
+                                        {{this.details.address}} <br>
+                                        {{this.details.pincode}}</p>
+                                    <button type="submit" onclick="Passaddress('{{this.details.firstname}}',
                                     '{{this.details.lastname}}',
                                      '{{this.details.email}}',
                                       '{{this.details.address}}',
                                       '{{this.details.pincode}}')" class="btn btn-primary">
-                                            Use Adress</button>
-                                    </div>
-                                    </div>
-                                    {{/each}}
-
-                                    
-                                
-                            </div>
-
-
-                            <hr>
-                            <div>
-                                <div class="checkout_btn_inner float-right">
-
-                                    <a class="btn" href="/add-address">Add Address</a>
+                                        Use Adress</button>
                                 </div>
+                            </div>
+                            {{/each}}
 
+
+
+                        </div>
+
+
+                        <hr>
+                        <div>
+                            <div class="checkout_btn_inner float-right">
+
+                                <a class="btn" href="/add-address">Add Address</a>
                             </div>
 
                         </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-lg-4">
+                    <div class=" col md-4 order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li>
+                                <a href="#">Product<span>Total</span>
+                                </a>
+                            </li>
+                            <li>
+                                
+                            </li>
+                            <li>
+
+                            </li>
+                            <li>
+                                
+                            </li>
+                        </ul>
+                        <ul class="list list_2">
+                            <li>
+                                <a href="#">Discount <span id="discount" hidden></span></a>
+                            </li>
+                            
+                            <li>
+                                <a>Total <span><strong id="grandTotal">{{total}}</strong></span>
+                                </a>
+                            </li>
+                        </ul>
+
+
                     </div>
 
-
-
-
-
-
-                    <div class="col-lg-4">
-                        <div class=" col md-4 order_box">
-                            <h2>Your Order</h2>
-                            <ul class="list">
-                                <li>
-                                    <a href="#">Product<span>Total</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Fresh Blackberry
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Fresh Tomatoes
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Fresh Brocoli
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="list list_2">
-                                <li>
-                                    <a href="#">Subtotal <span>$2160.00</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Shipping
-                                        <span>Flat rate: $50.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Total<span>{{total}}</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-
-                        </div>
-
-                        <a class="btn w-100" href="#">Proceed to Paypal</a>
-                    </div>
 
                 </div>
+
             </div>
+        </div>
         </div>
     </section>
 
@@ -232,98 +234,203 @@
 </script>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+
+{{!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> --}}
+
+
+
+
+
 <script>
 
-    $("#address-form").submit((e) => {
-        e.preventDefault()
-        console.log("form called")
-        $.ajax({
-            url: '/placeorder',
-            method: 'post',
-            data: $('#address-form').serialize(),
-            success: (response) => {
-                console.log("dfska", response)
-                if (response.codSuccess) {
-                    location.href = '/success'
-                }
-                else if (response.paypal) {
-                    console.log("PAYAPADKjkh")
-                    console.log(response)
-                    paypal.Buttons({
-                        createOrder: function (data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        value: response.total
-                                    }
-                                }]
-                            })
-                        },
-                        onApprove: function (data, action) {
-                            return action.order.capture().then(function (details) {
-                                location.href = '/success'
-                            })
-                        }
-                    }).render('#paypal-payment-button');
+
+
+
+
+
+
+
+
+    $(document).ready(() => {
+        $("#addressform").validate({
+            rules: {
+                firstname: {
+                    required: true,
+                    minlength: 3
+                },
+                lastname: {
+                    required: true,
+                    minlength: 3
+                },
+                
+                city: {
+                    required: true
+                },
+                State: {
+                    required: true
+                },
+                pincode: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 6
+                },
+                payment: {
+                    required: true,
 
                 }
-                else {
-                    razorpayment(response)
-                }
+            },
+            submitHandler: function (addressform, e) {
+                e.preventDefault()
+                console.log("form called")
+                $.ajax({
+                    url: '/placeorder',
+                    method: 'post',
+                    data: $(addressform).serialize(),
+                    success: (response) => {
+                        console.log("dfska", response)
+                        if (response.codSuccess) {
+                            location.href = '/success'
+                        }
+                        else if (response.paypal) {
+                            console.log("PAYAPADKjkh")
+                            console.log(response)
+                            paypal.Buttons({
+                                createOrder: function (data, actions) {
+                                    return actions.order.create({
+                                        purchase_units: [{
+                                            amount: {
+                                                value: response.total
+                                            }
+                                        }]
+                                    })
+                                },
+                                onApprove: function (data, action) {
+                                    return action.order.capture().then(function (details) {
+                                        location.href = '/success'
+                                    })
+                                }
+                            }).render('#paypal-payment-button');
+
+                        }
+                        else {
+                            razorpayment(response)
+                        }
+                    }
+                })
             }
         })
+
+        function razorpayment(order) {
+            console.log(order.response.amount, order.id)
+            var options = {
+                "key": "rzp_test_XV9PdEenLV2Ukw", // Enter the Key ID generated from the Dashboard
+                "amount": order.response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "bookbus",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    {
+
+                    }
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+        function verifyPayment(payment, order) {
+            let ord = order.response
+            console.log("datata", ord)
+            console.log("VERIFY OIkj", payment, order)
+            $.ajax({
+                url: '/verifypayment',
+                method: 'POST',
+                data: {
+                    payment, order
+                },
+
+                success: (response) => {
+                    console.log(response, "rtrtdfgyfg")
+                    if (response.status) {
+                        location.href = '/success'
+                    }
+                    else {
+                        alert('payment failed')
+                    }
+                }
+            })
+        }
     })
 
-    function razorpayment(order) {
-        console.log(order.response.amount, order.id)
-        var options = {
-            "key": "rzp_test_XV9PdEenLV2Ukw", // Enter the Key ID generated from the Dashboard
-            "amount": order.response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "INR",
-            "name": "bookbus",
-            "description": "Test Transaction",
-            "image": "https://example.com/your_logo",
-            "order_id": order.response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "handler": function (response) {
-                {
+</script>
 
-                }
-                verifyPayment(response, order)
-            },
-            "prefill": {
-                "name": "Gaurav Kumar",
-                "email": "gaurav.kumar@example.com",
-                "contact": "9999999999"
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-    }
-    function verifyPayment(payment, order) {
-        let ord = order.response
-        console.log("datata", ord)
-        console.log("VERIFY OIkj", payment, order)
+
+
+
+<script>
+    function applyCoupon() {
+        console.log('ividund')
+        let coupon = $('#input-coupon').val()
+        let user = $('#input-user').val()
+        console.log("couponhere", coupon)
         $.ajax({
-            url: '/verifypayment',
+            url: '/verifyCoupon',
             method: 'POST',
             data: {
-                payment, order
+                coupon,
+                user
             },
-
             success: (response) => {
-                console.log(response, "rtrtdfgyfg")
-                if (response.status) {
-                    location.href = '/success'
+
+                console.log('eeeeeeeeeee', response.status)
+                if (response.status == 0) {
+
+                    $('#success').show()
+                    $('#used').hide()
+                    $('#invalid').hide()
+                    let totalAmount = document.getElementById('grandTotal').innerHTML
+
+                    let discountPrice = totalAmount * (100 - response.offer) / 100
+                    let discount=response.offer
+                    document.getElementById('grandTotal').innerHTML = discountPrice
+                    document.getElementById('total').value = discountPrice
+                    document.getElementById('discount').innerHTML=discount
+
+
+                    console.log('@@@@@@@@@@', discountPrice)
                 }
-                else {
-                    alert('payment failed')
+                else if (response.status == 2) {
+                    $('#used').show()
+                    $('#success').hide()
+                    $('#invalid').hide()
                 }
+                else if (response.status == 1) {
+                    $('#invalid').show()
+                    $('#used').hide()
+                    $('#success').hide()
+                }
+
             }
         })
     }
